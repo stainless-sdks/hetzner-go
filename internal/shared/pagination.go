@@ -15,7 +15,7 @@ import (
 type FloatingIpsPage[T any] struct {
 	FloatingIps []T `json:"floating_ips,required"`
 	// Metadata contained in the response
-	Meta ResponseMeta `json:"meta"`
+	Meta ResponseMeta `json:"meta,required"`
 	JSON floatingIpsPageJSON
 	cfg  *requestconfig.RequestConfig
 	res  *http.Response
@@ -105,18 +105,18 @@ func (r *FloatingIpsPageAutoPager[T]) Index() int {
 
 // Response to GET https://api.hetzner.cloud/v1/servers
 type ServersPage[T any] struct {
-	Servers []T `json:"servers,required"`
 	// Metadata contained in the response
-	Meta ResponseMeta `json:"meta"`
-	JSON serversPageJSON
-	cfg  *requestconfig.RequestConfig
-	res  *http.Response
+	Meta    ResponseMeta `json:"meta,required"`
+	Servers []T          `json:"servers,required"`
+	JSON    serversPageJSON
+	cfg     *requestconfig.RequestConfig
+	res     *http.Response
 }
 
 // serversPageJSON contains the JSON metadata for the struct [ServersPage[T]]
 type serversPageJSON struct {
-	Servers     apijson.Field
 	Meta        apijson.Field
+	Servers     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
