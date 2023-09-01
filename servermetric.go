@@ -185,7 +185,7 @@ func (r ServerMetricListParams) URLQuery() (v url.Values) {
 type ServerMetricListParamsType string
 
 const (
-	ServerMetricListParamsTypeCpu     ServerMetricListParamsType = "cpu"
+	ServerMetricListParamsTypeCPU     ServerMetricListParamsType = "cpu"
 	ServerMetricListParamsTypeDisk    ServerMetricListParamsType = "disk"
 	ServerMetricListParamsTypeNetwork ServerMetricListParamsType = "network"
 )

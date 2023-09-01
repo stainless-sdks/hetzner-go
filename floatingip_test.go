@@ -12,7 +12,7 @@ import (
 	"github.com/hetzner/hetzner-go/option"
 )
 
-func TestFloatingIpNewWithOptionalParams(t *testing.T) {
+func TestFloatingIPNewWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -20,8 +20,8 @@ func TestFloatingIpNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.FloatingIps.New(context.TODO(), hetzner.FloatingIpNewParams{
-		Type:         hetzner.F(hetzner.FloatingIpNewParamsTypeIpv4),
+	_, err := client.FloatingIPs.New(context.TODO(), hetzner.FloatingIPNewParams{
+		Type:         hetzner.F(hetzner.FloatingIPNewParamsTypeIpv4),
 		Description:  hetzner.F("Web Frontend"),
 		HomeLocation: hetzner.F("fsn1"),
 		Labels: hetzner.F(map[string]string{
@@ -39,7 +39,7 @@ func TestFloatingIpNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestFloatingIpGet(t *testing.T) {
+func TestFloatingIPGet(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -47,7 +47,7 @@ func TestFloatingIpGet(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.FloatingIps.Get(context.TODO(), int64(0))
+	_, err := client.FloatingIPs.Get(context.TODO(), int64(0))
 	if err != nil {
 		var apierr *hetzner.Error
 		if errors.As(err, &apierr) {
@@ -57,7 +57,7 @@ func TestFloatingIpGet(t *testing.T) {
 	}
 }
 
-func TestFloatingIpUpdateWithOptionalParams(t *testing.T) {
+func TestFloatingIPUpdateWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -65,10 +65,10 @@ func TestFloatingIpUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.FloatingIps.Update(
+	_, err := client.FloatingIPs.Update(
 		context.TODO(),
 		int64(0),
-		hetzner.FloatingIpUpdateParams{
+		hetzner.FloatingIPUpdateParams{
 			Description: hetzner.F("Web Frontend"),
 			Labels: hetzner.F(map[string]string{
 				"foo": "string",
@@ -85,7 +85,7 @@ func TestFloatingIpUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestFloatingIpListWithOptionalParams(t *testing.T) {
+func TestFloatingIPListWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -93,12 +93,12 @@ func TestFloatingIpListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.FloatingIps.List(context.TODO(), hetzner.FloatingIpListParams{
+	_, err := client.FloatingIPs.List(context.TODO(), hetzner.FloatingIPListParams{
 		LabelSelector: hetzner.F("string"),
 		Name:          hetzner.F("string"),
 		Page:          hetzner.F(int64(1)),
 		PerPage:       hetzner.F(int64(1)),
-		Sort:          hetzner.F(hetzner.FloatingIpListParamsSortID),
+		Sort:          hetzner.F(hetzner.FloatingIPListParamsSortID),
 	})
 	if err != nil {
 		var apierr *hetzner.Error
@@ -109,7 +109,7 @@ func TestFloatingIpListWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestFloatingIpDelete(t *testing.T) {
+func TestFloatingIPDelete(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -117,7 +117,7 @@ func TestFloatingIpDelete(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	err := client.FloatingIps.Delete(context.TODO(), int64(0))
+	err := client.FloatingIPs.Delete(context.TODO(), int64(0))
 	if err != nil {
 		var apierr *hetzner.Error
 		if errors.As(err, &apierr) {

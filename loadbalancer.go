@@ -311,7 +311,7 @@ func (r *LoadBalancerLocation) UnmarshalJSON(data []byte) (err error) {
 
 type LoadBalancerPrivateNet struct {
 	// IP address (v4) of this Load Balancer in this Network
-	Ip string `json:"ip"`
+	IP string `json:"ip"`
 	// ID of the Network
 	Network int64 `json:"network"`
 	JSON    loadBalancerPrivateNetJSON
@@ -320,7 +320,7 @@ type LoadBalancerPrivateNet struct {
 // loadBalancerPrivateNetJSON contains the JSON metadata for the struct
 // [LoadBalancerPrivateNet]
 type loadBalancerPrivateNetJSON struct {
-	Ip          apijson.Field
+	IP          apijson.Field
 	Network     apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -378,17 +378,17 @@ func (r *LoadBalancerPublicNet) UnmarshalJSON(data []byte) (err error) {
 // IP address (v4)
 type LoadBalancerPublicNetIpv4 struct {
 	// Reverse DNS PTR entry for the IPv4 address of this Load Balancer
-	DnsPtr string `json:"dns_ptr,nullable"`
+	DNSPtr string `json:"dns_ptr,nullable"`
 	// IP address (v4) of this Load Balancer
-	Ip   string `json:"ip,nullable"`
+	IP   string `json:"ip,nullable"`
 	JSON loadBalancerPublicNetIpv4JSON
 }
 
 // loadBalancerPublicNetIpv4JSON contains the JSON metadata for the struct
 // [LoadBalancerPublicNetIpv4]
 type loadBalancerPublicNetIpv4JSON struct {
-	DnsPtr      apijson.Field
-	Ip          apijson.Field
+	DNSPtr      apijson.Field
+	IP          apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -400,17 +400,17 @@ func (r *LoadBalancerPublicNetIpv4) UnmarshalJSON(data []byte) (err error) {
 // IP address (v6)
 type LoadBalancerPublicNetIpv6 struct {
 	// Reverse DNS PTR entry for the IPv6 address of this Load Balancer
-	DnsPtr string `json:"dns_ptr,nullable"`
+	DNSPtr string `json:"dns_ptr,nullable"`
 	// IP address (v6) of this Load Balancer
-	Ip   string `json:"ip,nullable"`
+	IP   string `json:"ip,nullable"`
 	JSON loadBalancerPublicNetIpv6JSON
 }
 
 // loadBalancerPublicNetIpv6JSON contains the JSON metadata for the struct
 // [LoadBalancerPublicNetIpv6]
 type loadBalancerPublicNetIpv6JSON struct {
-	DnsPtr      apijson.Field
-	Ip          apijson.Field
+	DNSPtr      apijson.Field
+	IP          apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
@@ -586,7 +586,7 @@ type LoadBalancerTarget struct {
 	// owner. IPs belonging to other users are blocked. Additionally IPs belonging to
 	// services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as
 	// well. Only present for target type "ip".
-	Ip LoadBalancerTargetIp `json:"ip"`
+	IP LoadBalancerTargetIP `json:"ip"`
 	// Configuration for type LabelSelector, required if type is `label_selector`
 	LabelSelector LoadBalancerTargetsLabelSelector `json:"label_selector"`
 	// ID of the Resource
@@ -596,7 +596,7 @@ type LoadBalancerTarget struct {
 	Targets []LoadBalancerTargetsTarget `json:"targets"`
 	// Use the private network IP instead of the public IP. Default value is false.
 	// Only present for target types "server" and "label_selector".
-	UsePrivateIp bool `json:"use_private_ip"`
+	UsePrivateIP bool `json:"use_private_ip"`
 	JSON         loadBalancerTargetJSON
 }
 
@@ -605,11 +605,11 @@ type LoadBalancerTarget struct {
 type loadBalancerTargetJSON struct {
 	Type          apijson.Field
 	HealthStatus  apijson.Field
-	Ip            apijson.Field
+	IP            apijson.Field
 	LabelSelector apijson.Field
 	Server        apijson.Field
 	Targets       apijson.Field
-	UsePrivateIp  apijson.Field
+	UsePrivateIP  apijson.Field
 	raw           string
 	ExtraFields   map[string]apijson.Field
 }
@@ -622,7 +622,7 @@ func (r *LoadBalancerTarget) UnmarshalJSON(data []byte) (err error) {
 type LoadBalancerTargetsType string
 
 const (
-	LoadBalancerTargetsTypeIp            LoadBalancerTargetsType = "ip"
+	LoadBalancerTargetsTypeIP            LoadBalancerTargetsType = "ip"
 	LoadBalancerTargetsTypeLabelSelector LoadBalancerTargetsType = "label_selector"
 	LoadBalancerTargetsTypeServer        LoadBalancerTargetsType = "server"
 )
@@ -632,22 +632,22 @@ const (
 // owner. IPs belonging to other users are blocked. Additionally IPs belonging to
 // services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as
 // well. Only present for target type "ip".
-type LoadBalancerTargetIp struct {
+type LoadBalancerTargetIP struct {
 	// IP of a server that belongs to the same customer (public IPv4/IPv6) or private
 	// IP in a Subnetwork type vswitch.
-	Ip   string `json:"ip,required"`
-	JSON loadBalancerTargetIpJSON
+	IP   string `json:"ip,required"`
+	JSON loadBalancerTargetIPJSON
 }
 
-// loadBalancerTargetIpJSON contains the JSON metadata for the struct
-// [LoadBalancerTargetIp]
-type loadBalancerTargetIpJSON struct {
-	Ip          apijson.Field
+// loadBalancerTargetIPJSON contains the JSON metadata for the struct
+// [LoadBalancerTargetIP]
+type loadBalancerTargetIPJSON struct {
+	IP          apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *LoadBalancerTargetIp) UnmarshalJSON(data []byte) (err error) {
+func (r *LoadBalancerTargetIP) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -699,7 +699,7 @@ type LoadBalancerTargetsTarget struct {
 	Type string `json:"type"`
 	// Use the private network IP instead of the public IP. Default value is false.
 	// Only present for target types "server" and "label_selector".
-	UsePrivateIp bool `json:"use_private_ip"`
+	UsePrivateIP bool `json:"use_private_ip"`
 	JSON         loadBalancerTargetsTargetJSON
 }
 
@@ -709,7 +709,7 @@ type loadBalancerTargetsTargetJSON struct {
 	HealthStatus apijson.Field
 	Server       apijson.Field
 	Type         apijson.Field
-	UsePrivateIp apijson.Field
+	UsePrivateIP apijson.Field
 	raw          string
 	ExtraFields  map[string]apijson.Field
 }
@@ -826,13 +826,13 @@ func (r LoadBalancerServiceModelHTTPParam) MarshalJSON() (data []byte, err error
 // owner. IPs belonging to other users are blocked. Additionally IPs belonging to
 // services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as
 // well. Only present for target type "ip".
-type LoadBalancerTargetIpParam struct {
+type LoadBalancerTargetIPParam struct {
 	// IP of a server that belongs to the same customer (public IPv4/IPv6) or private
 	// IP in a Subnetwork type vswitch.
-	Ip param.Field[string] `json:"ip,required"`
+	IP param.Field[string] `json:"ip,required"`
 }
 
-func (r LoadBalancerTargetIpParam) MarshalJSON() (data []byte, err error) {
+func (r LoadBalancerTargetIPParam) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
@@ -973,7 +973,7 @@ type LoadBalancerNewParamsTarget struct {
 	// owner. IPs belonging to other users are blocked. Additionally IPs belonging to
 	// services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as
 	// well. Only present for target type "ip".
-	Ip param.Field[LoadBalancerTargetIpParam] `json:"ip"`
+	IP param.Field[LoadBalancerTargetIPParam] `json:"ip"`
 	// Configuration for type LabelSelector, required if type is `label_selector`
 	LabelSelector param.Field[LoadBalancerNewParamsTargetsLabelSelector] `json:"label_selector"`
 	// ID of the Resource
@@ -983,7 +983,7 @@ type LoadBalancerNewParamsTarget struct {
 	Targets param.Field[[]LoadBalancerNewParamsTargetsTarget] `json:"targets"`
 	// Use the private network IP instead of the public IP. Default value is false.
 	// Only present for target types "server" and "label_selector".
-	UsePrivateIp param.Field[bool] `json:"use_private_ip"`
+	UsePrivateIP param.Field[bool] `json:"use_private_ip"`
 }
 
 func (r LoadBalancerNewParamsTarget) MarshalJSON() (data []byte, err error) {
@@ -994,7 +994,7 @@ func (r LoadBalancerNewParamsTarget) MarshalJSON() (data []byte, err error) {
 type LoadBalancerNewParamsTargetsType string
 
 const (
-	LoadBalancerNewParamsTargetsTypeIp            LoadBalancerNewParamsTargetsType = "ip"
+	LoadBalancerNewParamsTargetsTypeIP            LoadBalancerNewParamsTargetsType = "ip"
 	LoadBalancerNewParamsTargetsTypeLabelSelector LoadBalancerNewParamsTargetsType = "label_selector"
 	LoadBalancerNewParamsTargetsTypeServer        LoadBalancerNewParamsTargetsType = "server"
 )
@@ -1029,7 +1029,7 @@ type LoadBalancerNewParamsTargetsTarget struct {
 	Type param.Field[string] `json:"type"`
 	// Use the private network IP instead of the public IP. Default value is false.
 	// Only present for target types "server" and "label_selector".
-	UsePrivateIp param.Field[bool] `json:"use_private_ip"`
+	UsePrivateIP param.Field[bool] `json:"use_private_ip"`
 }
 
 func (r LoadBalancerNewParamsTargetsTarget) MarshalJSON() (data []byte, err error) {

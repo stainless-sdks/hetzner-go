@@ -16,26 +16,26 @@ import (
 	"github.com/hetzner/hetzner-go/option"
 )
 
-// PrimaryIpActionService contains methods and other services that help with
+// PrimaryIPActionService contains methods and other services that help with
 // interacting with the hetzner API. Note, unlike clients, this service does not
 // read variables from the environment automatically. You should not instantiate
-// this service directly, and instead use the [NewPrimaryIpActionService] method
+// this service directly, and instead use the [NewPrimaryIPActionService] method
 // instead.
-type PrimaryIpActionService struct {
+type PrimaryIPActionService struct {
 	Options []option.RequestOption
 }
 
-// NewPrimaryIpActionService generates a new service that applies the given options
+// NewPrimaryIPActionService generates a new service that applies the given options
 // to each request. These options are applied after the parent client's options (if
 // there is one), and before any request-specific options.
-func NewPrimaryIpActionService(opts ...option.RequestOption) (r *PrimaryIpActionService) {
-	r = &PrimaryIpActionService{}
+func NewPrimaryIPActionService(opts ...option.RequestOption) (r *PrimaryIPActionService) {
+	r = &PrimaryIPActionService{}
 	r.Options = opts
 	return
 }
 
 // Returns a specific Action object.
-func (r *PrimaryIpActionService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *PrimaryIpActionGetResponse, err error) {
+func (r *PrimaryIPActionService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *PrimaryIPActionGetResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("primary_ips/actions/%v", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -44,7 +44,7 @@ func (r *PrimaryIpActionService) Get(ctx context.Context, id int64, opts ...opti
 
 // Returns all Action objects. You can `sort` the results by using the sort URI
 // parameter, and filter them with the `status` and `id` parameter.
-func (r *PrimaryIpActionService) List(ctx context.Context, query PrimaryIpActionListParams, opts ...option.RequestOption) (res *PrimaryIpActionListResponse, err error) {
+func (r *PrimaryIPActionService) List(ctx context.Context, query PrimaryIPActionListParams, opts ...option.RequestOption) (res *PrimaryIPActionListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "primary_ips/actions"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
@@ -67,7 +67,7 @@ func (r *PrimaryIpActionService) List(ctx context.Context, query PrimaryIpAction
 // | `primary_ip_already_assigned` | Primary ip is already assigned to a different server |
 // | `server_has_ipv4`             | The server already has an ipv4 address               |
 // | `server_has_ipv6`             | The server already has an ipv6 address               |
-func (r *PrimaryIpActionService) Assign(ctx context.Context, id int64, body PrimaryIpActionAssignParams, opts ...option.RequestOption) (res *PrimaryIpActionAssignResponse, err error) {
+func (r *PrimaryIPActionService) Assign(ctx context.Context, id int64, body PrimaryIPActionAssignParams, opts ...option.RequestOption) (res *PrimaryIPActionAssignResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("primary_ips/%v/actions/assign", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -76,7 +76,7 @@ func (r *PrimaryIpActionService) Assign(ctx context.Context, id int64, body Prim
 
 // Changes the hostname that will appear when getting the hostname belonging to
 // this Primary IP.
-func (r *PrimaryIpActionService) ChangeDnsPtr(ctx context.Context, id int64, body PrimaryIpActionChangeDnsPtrParams, opts ...option.RequestOption) (res *PrimaryIpActionChangeDnsPtrResponse, err error) {
+func (r *PrimaryIPActionService) ChangeDNSPtr(ctx context.Context, id int64, body PrimaryIPActionChangeDNSPtrParams, opts ...option.RequestOption) (res *PrimaryIPActionChangeDNSPtrResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("primary_ips/%v/actions/change_dns_ptr", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -87,7 +87,7 @@ func (r *PrimaryIpActionService) ChangeDnsPtr(ctx context.Context, id int64, bod
 //
 // A Primary IP can only be delete protected if its `auto_delete` property is set
 // to `false`.
-func (r *PrimaryIpActionService) ChangeProtection(ctx context.Context, id int64, body PrimaryIpActionChangeProtectionParams, opts ...option.RequestOption) (res *PrimaryIpActionChangeProtectionResponse, err error) {
+func (r *PrimaryIPActionService) ChangeProtection(ctx context.Context, id int64, body PrimaryIPActionChangeProtectionParams, opts ...option.RequestOption) (res *PrimaryIPActionChangeProtectionResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("primary_ips/%v/actions/change_protection", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -108,7 +108,7 @@ func (r *PrimaryIpActionService) ChangeProtection(ctx context.Context, id int64,
 // | -------------------------------- | -------------------------------------------------- |
 // | `server_not_stopped`             | The server is running, but needs to be powered off |
 // | `server_is_load_balancer_target` | The server ipv4 address is a loadbalancer target   |
-func (r *PrimaryIpActionService) Unassign(ctx context.Context, id int64, opts ...option.RequestOption) (res *PrimaryIpActionUnassignResponse, err error) {
+func (r *PrimaryIPActionService) Unassign(ctx context.Context, id int64, opts ...option.RequestOption) (res *PrimaryIPActionUnassignResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("primary_ips/%v/actions/unassign", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
@@ -116,124 +116,124 @@ func (r *PrimaryIpActionService) Unassign(ctx context.Context, id int64, opts ..
 }
 
 // Response to GET https://api.hetzner.cloud/v1/{resource}/actions
-type PrimaryIpActionGetResponse struct {
+type PrimaryIPActionGetResponse struct {
 	// Actions show the results and progress of asynchronous requests to the API.
 	Action shared.Action `json:"action,required"`
-	JSON   primaryIpActionGetResponseJSON
+	JSON   primaryIPActionGetResponseJSON
 }
 
-// primaryIpActionGetResponseJSON contains the JSON metadata for the struct
-// [PrimaryIpActionGetResponse]
-type primaryIpActionGetResponseJSON struct {
+// primaryIPActionGetResponseJSON contains the JSON metadata for the struct
+// [PrimaryIPActionGetResponse]
+type primaryIPActionGetResponseJSON struct {
 	Action      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpActionGetResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPActionGetResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Response to GET https://api.hetzner.cloud/v1/{resource}/actions/{id}
-type PrimaryIpActionListResponse struct {
+type PrimaryIPActionListResponse struct {
 	Actions []shared.Action `json:"actions,required"`
 	// Metadata contained in the response
 	Meta shared.ResponseMeta `json:"meta"`
-	JSON primaryIpActionListResponseJSON
+	JSON primaryIPActionListResponseJSON
 }
 
-// primaryIpActionListResponseJSON contains the JSON metadata for the struct
-// [PrimaryIpActionListResponse]
-type primaryIpActionListResponseJSON struct {
+// primaryIPActionListResponseJSON contains the JSON metadata for the struct
+// [PrimaryIPActionListResponse]
+type primaryIPActionListResponseJSON struct {
 	Actions     apijson.Field
 	Meta        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpActionListResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPActionListResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/assign
-type PrimaryIpActionAssignResponse struct {
+type PrimaryIPActionAssignResponse struct {
 	// Actions show the results and progress of asynchronous requests to the API.
 	Action shared.Action `json:"action,required"`
-	JSON   primaryIpActionAssignResponseJSON
+	JSON   primaryIPActionAssignResponseJSON
 }
 
-// primaryIpActionAssignResponseJSON contains the JSON metadata for the struct
-// [PrimaryIpActionAssignResponse]
-type primaryIpActionAssignResponseJSON struct {
+// primaryIPActionAssignResponseJSON contains the JSON metadata for the struct
+// [PrimaryIPActionAssignResponse]
+type primaryIPActionAssignResponseJSON struct {
 	Action      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpActionAssignResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPActionAssignResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Response to POST
 // https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_dns_ptr
-type PrimaryIpActionChangeDnsPtrResponse struct {
+type PrimaryIPActionChangeDNSPtrResponse struct {
 	// Actions show the results and progress of asynchronous requests to the API.
 	Action shared.Action `json:"action,required"`
-	JSON   primaryIpActionChangeDnsPtrResponseJSON
+	JSON   primaryIPActionChangeDNSPtrResponseJSON
 }
 
-// primaryIpActionChangeDnsPtrResponseJSON contains the JSON metadata for the
-// struct [PrimaryIpActionChangeDnsPtrResponse]
-type primaryIpActionChangeDnsPtrResponseJSON struct {
+// primaryIPActionChangeDNSPtrResponseJSON contains the JSON metadata for the
+// struct [PrimaryIPActionChangeDNSPtrResponse]
+type primaryIPActionChangeDNSPtrResponseJSON struct {
 	Action      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpActionChangeDnsPtrResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPActionChangeDNSPtrResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Response to POST
 // https://api.hetzner.cloud/v1/primary_ips/{id}/actions/change_protection
-type PrimaryIpActionChangeProtectionResponse struct {
+type PrimaryIPActionChangeProtectionResponse struct {
 	// Actions show the results and progress of asynchronous requests to the API.
 	Action shared.Action `json:"action,required"`
-	JSON   primaryIpActionChangeProtectionResponseJSON
+	JSON   primaryIPActionChangeProtectionResponseJSON
 }
 
-// primaryIpActionChangeProtectionResponseJSON contains the JSON metadata for the
-// struct [PrimaryIpActionChangeProtectionResponse]
-type primaryIpActionChangeProtectionResponseJSON struct {
+// primaryIPActionChangeProtectionResponseJSON contains the JSON metadata for the
+// struct [PrimaryIPActionChangeProtectionResponse]
+type primaryIPActionChangeProtectionResponseJSON struct {
 	Action      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpActionChangeProtectionResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPActionChangeProtectionResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Response to POST https://api.hetzner.cloud/v1/primary_ips/{id}/actions/unassign
-type PrimaryIpActionUnassignResponse struct {
+type PrimaryIPActionUnassignResponse struct {
 	// Actions show the results and progress of asynchronous requests to the API.
 	Action shared.Action `json:"action,required"`
-	JSON   primaryIpActionUnassignResponseJSON
+	JSON   primaryIPActionUnassignResponseJSON
 }
 
-// primaryIpActionUnassignResponseJSON contains the JSON metadata for the struct
-// [PrimaryIpActionUnassignResponse]
-type primaryIpActionUnassignResponseJSON struct {
+// primaryIPActionUnassignResponseJSON contains the JSON metadata for the struct
+// [PrimaryIPActionUnassignResponse]
+type primaryIPActionUnassignResponseJSON struct {
 	Action      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpActionUnassignResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPActionUnassignResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type PrimaryIpActionListParams struct {
+type PrimaryIPActionListParams struct {
 	// Can be used multiple times, the response will contain only Actions with
 	// specified IDs
 	ID param.Field[int64] `query:"id"`
@@ -249,50 +249,50 @@ type PrimaryIpActionListParams struct {
 	Status param.Field[shared.StatusParam] `query:"status"`
 }
 
-// URLQuery serializes [PrimaryIpActionListParams]'s query parameters as
+// URLQuery serializes [PrimaryIPActionListParams]'s query parameters as
 // `url.Values`.
-func (r PrimaryIpActionListParams) URLQuery() (v url.Values) {
+func (r PrimaryIPActionListParams) URLQuery() (v url.Values) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
 	})
 }
 
-type PrimaryIpActionAssignParams struct {
+type PrimaryIPActionAssignParams struct {
 	// ID of a resource of type `assignee_type`
 	AssigneeID param.Field[int64] `json:"assignee_id,required"`
 	// Type of resource assigning the Primary IP to
-	AssigneeType param.Field[PrimaryIpActionAssignParamsAssigneeType] `json:"assignee_type,required"`
+	AssigneeType param.Field[PrimaryIPActionAssignParamsAssigneeType] `json:"assignee_type,required"`
 }
 
-func (r PrimaryIpActionAssignParams) MarshalJSON() (data []byte, err error) {
+func (r PrimaryIPActionAssignParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
 // Type of resource assigning the Primary IP to
-type PrimaryIpActionAssignParamsAssigneeType string
+type PrimaryIPActionAssignParamsAssigneeType string
 
 const (
-	PrimaryIpActionAssignParamsAssigneeTypeServer PrimaryIpActionAssignParamsAssigneeType = "server"
+	PrimaryIPActionAssignParamsAssigneeTypeServer PrimaryIPActionAssignParamsAssigneeType = "server"
 )
 
-type PrimaryIpActionChangeDnsPtrParams struct {
+type PrimaryIPActionChangeDNSPtrParams struct {
 	// Hostname to set as a reverse DNS PTR entry, will reset to original default value
 	// if `null`
-	DnsPtr param.Field[string] `json:"dns_ptr,required"`
+	DNSPtr param.Field[string] `json:"dns_ptr,required"`
 	// IP address for which to set the reverse DNS entry
-	Ip param.Field[string] `json:"ip,required"`
+	IP param.Field[string] `json:"ip,required"`
 }
 
-func (r PrimaryIpActionChangeDnsPtrParams) MarshalJSON() (data []byte, err error) {
+func (r PrimaryIPActionChangeDNSPtrParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type PrimaryIpActionChangeProtectionParams struct {
+type PrimaryIPActionChangeProtectionParams struct {
 	// If true, prevents the Primary IP from being deleted
 	Delete param.Field[bool] `json:"delete"`
 }
 
-func (r PrimaryIpActionChangeProtectionParams) MarshalJSON() (data []byte, err error) {
+func (r PrimaryIPActionChangeProtectionParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }

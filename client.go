@@ -17,16 +17,16 @@ type Client struct {
 	Certificates      *CertificateService
 	Datacenters       *DatacenterService
 	Firewalls         *FirewallService
-	FloatingIps       *FloatingIpService
+	FloatingIPs       *FloatingIPService
 	Images            *ImageService
-	Isos              *IsoService
+	ISOs              *ISOService
 	LoadBalancerTypes *LoadBalancerTypeService
 	LoadBalancers     *LoadBalancerService
 	Locations         *LocationService
 	Networks          *NetworkService
 	PlacementGroups   *PlacementGroupService
 	Pricing           *PricingService
-	PrimaryIps        *PrimaryIpService
+	PrimaryIPs        *PrimaryIPService
 	ServerTypes       *ServerTypeService
 	Servers           *ServerService
 	SshKeys           *SshKeyService
@@ -50,16 +50,16 @@ func NewClient(opts ...option.RequestOption) (r *Client) {
 	r.Certificates = NewCertificateService(opts...)
 	r.Datacenters = NewDatacenterService(opts...)
 	r.Firewalls = NewFirewallService(opts...)
-	r.FloatingIps = NewFloatingIpService(opts...)
+	r.FloatingIPs = NewFloatingIPService(opts...)
 	r.Images = NewImageService(opts...)
-	r.Isos = NewIsoService(opts...)
+	r.ISOs = NewISOService(opts...)
 	r.LoadBalancerTypes = NewLoadBalancerTypeService(opts...)
 	r.LoadBalancers = NewLoadBalancerService(opts...)
 	r.Locations = NewLocationService(opts...)
 	r.Networks = NewNetworkService(opts...)
 	r.PlacementGroups = NewPlacementGroupService(opts...)
 	r.Pricing = NewPricingService(opts...)
-	r.PrimaryIps = NewPrimaryIpService(opts...)
+	r.PrimaryIPs = NewPrimaryIPService(opts...)
 	r.ServerTypes = NewServerTypeService(opts...)
 	r.Servers = NewServerService(opts...)
 	r.SshKeys = NewSshKeyService(opts...)

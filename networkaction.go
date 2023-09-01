@@ -91,7 +91,7 @@ func (r *NetworkActionService) AddSubnet(ctx context.Context, id int64, body Net
 //
 // Note: if the Network object changes during the request, the response will be a
 // “conflict” error.
-func (r *NetworkActionService) ChangeIpRange(ctx context.Context, id int64, body NetworkActionChangeIpRangeParams, opts ...option.RequestOption) (res *NetworkActionChangeIpRangeResponse, err error) {
+func (r *NetworkActionService) ChangeIPRange(ctx context.Context, id int64, body NetworkActionChangeIPRangeParams, opts ...option.RequestOption) (res *NetworkActionChangeIPRangeResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("networks/%v/actions/change_ip_range", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -214,21 +214,21 @@ func (r *NetworkActionAddSubnetResponse) UnmarshalJSON(data []byte) (err error) 
 
 // Response to POST
 // https://api.hetzner.cloud/v1/networks/{id}/actions/change_ip_range
-type NetworkActionChangeIpRangeResponse struct {
+type NetworkActionChangeIPRangeResponse struct {
 	// Actions show the results and progress of asynchronous requests to the API.
 	Action shared.Action `json:"action,required"`
-	JSON   networkActionChangeIpRangeResponseJSON
+	JSON   networkActionChangeIPRangeResponseJSON
 }
 
-// networkActionChangeIpRangeResponseJSON contains the JSON metadata for the struct
-// [NetworkActionChangeIpRangeResponse]
-type networkActionChangeIpRangeResponseJSON struct {
+// networkActionChangeIPRangeResponseJSON contains the JSON metadata for the struct
+// [NetworkActionChangeIPRangeResponse]
+type networkActionChangeIPRangeResponseJSON struct {
 	Action      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *NetworkActionChangeIpRangeResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *NetworkActionChangeIPRangeResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -345,7 +345,7 @@ type NetworkActionAddSubnetParams struct {
 	// any other subnets or with any destinations in routes. If the Subnet is of type
 	// vSwitch, it also can not overlap with any gateway in routes. Minimum Network
 	// size is /30. We suggest that you pick a bigger Network with a /24 netmask.
-	IpRange param.Field[string] `json:"ip_range"`
+	IPRange param.Field[string] `json:"ip_range"`
 	// ID of the robot vSwitch. Must be supplied if the subnet is of type vswitch.
 	VswitchID param.Field[int64] `json:"vswitch_id"`
 }
@@ -363,12 +363,12 @@ const (
 	NetworkActionAddSubnetParamsTypeVswitch NetworkActionAddSubnetParamsType = "vswitch"
 )
 
-type NetworkActionChangeIpRangeParams struct {
+type NetworkActionChangeIPRangeParams struct {
 	// The new prefix for the whole Network
-	IpRange param.Field[string] `json:"ip_range,required"`
+	IPRange param.Field[string] `json:"ip_range,required"`
 }
 
-func (r NetworkActionChangeIpRangeParams) MarshalJSON() (data []byte, err error) {
+func (r NetworkActionChangeIPRangeParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
@@ -401,7 +401,7 @@ func (r NetworkActionDeleteRouteParams) MarshalJSON() (data []byte, err error) {
 
 type NetworkActionDeleteSubnetParams struct {
 	// IP range of subnet to delete
-	IpRange param.Field[string] `json:"ip_range,required"`
+	IPRange param.Field[string] `json:"ip_range,required"`
 }
 
 func (r NetworkActionDeleteSubnetParams) MarshalJSON() (data []byte, err error) {

@@ -112,7 +112,7 @@ func (r *LoadBalancerActionService) ChangeAlgorithm(ctx context.Context, id int6
 // public IPs (IPv4 and IPv6) of this Load Balancer.
 //
 // Floating IPs assigned to the Server are not affected by this.
-func (r *LoadBalancerActionService) ChangeDnsPtr(ctx context.Context, id int64, body LoadBalancerActionChangeDnsPtrParams, opts ...option.RequestOption) (res *LoadBalancerActionChangeDnsPtrResponse, err error) {
+func (r *LoadBalancerActionService) ChangeDNSPtr(ctx context.Context, id int64, body LoadBalancerActionChangeDNSPtrParams, opts ...option.RequestOption) (res *LoadBalancerActionChangeDNSPtrResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("load_balancers/%v/actions/change_dns_ptr", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -328,21 +328,21 @@ func (r *LoadBalancerActionChangeAlgorithmResponse) UnmarshalJSON(data []byte) (
 
 // Response to POST
 // https://api.hetzner.cloud/v1/load_balancers/{id}/actions/change_dns_ptr
-type LoadBalancerActionChangeDnsPtrResponse struct {
+type LoadBalancerActionChangeDNSPtrResponse struct {
 	// Actions show the results and progress of asynchronous requests to the API.
 	Action shared.Action `json:"action,required"`
-	JSON   loadBalancerActionChangeDnsPtrResponseJSON
+	JSON   loadBalancerActionChangeDNSPtrResponseJSON
 }
 
-// loadBalancerActionChangeDnsPtrResponseJSON contains the JSON metadata for the
-// struct [LoadBalancerActionChangeDnsPtrResponse]
-type loadBalancerActionChangeDnsPtrResponseJSON struct {
+// loadBalancerActionChangeDNSPtrResponseJSON contains the JSON metadata for the
+// struct [LoadBalancerActionChangeDNSPtrResponse]
+type loadBalancerActionChangeDNSPtrResponseJSON struct {
 	Action      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *LoadBalancerActionChangeDnsPtrResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *LoadBalancerActionChangeDNSPtrResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -636,14 +636,14 @@ type LoadBalancerActionAssTargetParams struct {
 	// owner. IPs belonging to other users are blocked. Additionally IPs belonging to
 	// services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as
 	// well. Only present for target type "ip".
-	Ip param.Field[LoadBalancerTargetIpParam] `json:"ip"`
+	IP param.Field[LoadBalancerTargetIPParam] `json:"ip"`
 	// Configuration for type LabelSelector, required if type is `label_selector`
 	LabelSelector param.Field[LoadBalancerActionAssTargetParamsLabelSelector] `json:"label_selector"`
 	// Configuration for type Server, required if type is `server`
 	Server param.Field[LoadBalancerActionAssTargetParamsServer] `json:"server"`
 	// Use the private network IP instead of the public IP of the Server, requires the
 	// Server and Load Balancer to be in the same network. Default value is false.
-	UsePrivateIp param.Field[bool] `json:"use_private_ip"`
+	UsePrivateIP param.Field[bool] `json:"use_private_ip"`
 }
 
 func (r LoadBalancerActionAssTargetParams) MarshalJSON() (data []byte, err error) {
@@ -654,7 +654,7 @@ func (r LoadBalancerActionAssTargetParams) MarshalJSON() (data []byte, err error
 type LoadBalancerActionAssTargetParamsType string
 
 const (
-	LoadBalancerActionAssTargetParamsTypeIp            LoadBalancerActionAssTargetParamsType = "ip"
+	LoadBalancerActionAssTargetParamsTypeIP            LoadBalancerActionAssTargetParamsType = "ip"
 	LoadBalancerActionAssTargetParamsTypeLabelSelector LoadBalancerActionAssTargetParamsType = "label_selector"
 	LoadBalancerActionAssTargetParamsTypeServer        LoadBalancerActionAssTargetParamsType = "server"
 )
@@ -684,7 +684,7 @@ type LoadBalancerActionAttachToNetworkParams struct {
 	Network param.Field[int64] `json:"network,required"`
 	// IP to request to be assigned to this Load Balancer; if you do not provide this
 	// then you will be auto assigned an IP address
-	Ip param.Field[string] `json:"ip"`
+	IP param.Field[string] `json:"ip"`
 }
 
 func (r LoadBalancerActionAttachToNetworkParams) MarshalJSON() (data []byte, err error) {
@@ -708,14 +708,14 @@ const (
 	LoadBalancerActionChangeAlgorithmParamsTypeRoundRobin       LoadBalancerActionChangeAlgorithmParamsType = "round_robin"
 )
 
-type LoadBalancerActionChangeDnsPtrParams struct {
+type LoadBalancerActionChangeDNSPtrParams struct {
 	// Hostname to set as a reverse DNS PTR entry
-	DnsPtr param.Field[string] `json:"dns_ptr,required"`
+	DNSPtr param.Field[string] `json:"dns_ptr,required"`
 	// Public IP address for which the reverse DNS entry should be set
-	Ip param.Field[string] `json:"ip,required"`
+	IP param.Field[string] `json:"ip,required"`
 }
 
-func (r LoadBalancerActionChangeDnsPtrParams) MarshalJSON() (data []byte, err error) {
+func (r LoadBalancerActionChangeDNSPtrParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
@@ -763,7 +763,7 @@ type LoadBalancerActionRemoveTargetParams struct {
 	// owner. IPs belonging to other users are blocked. Additionally IPs belonging to
 	// services provided by Hetzner Cloud (Servers, Load Balancers, ...) are blocked as
 	// well. Only present for target type "ip".
-	Ip param.Field[LoadBalancerTargetIpParam] `json:"ip"`
+	IP param.Field[LoadBalancerTargetIPParam] `json:"ip"`
 	// Configuration for type LabelSelector, required if type is `label_selector`
 	LabelSelector param.Field[LoadBalancerActionRemoveTargetParamsLabelSelector] `json:"label_selector"`
 	// Configuration for type Server, required if type is `server`
@@ -778,7 +778,7 @@ func (r LoadBalancerActionRemoveTargetParams) MarshalJSON() (data []byte, err er
 type LoadBalancerActionRemoveTargetParamsType string
 
 const (
-	LoadBalancerActionRemoveTargetParamsTypeIp            LoadBalancerActionRemoveTargetParamsType = "ip"
+	LoadBalancerActionRemoveTargetParamsTypeIP            LoadBalancerActionRemoveTargetParamsType = "ip"
 	LoadBalancerActionRemoveTargetParamsTypeLabelSelector LoadBalancerActionRemoveTargetParamsType = "label_selector"
 	LoadBalancerActionRemoveTargetParamsTypeServer        LoadBalancerActionRemoveTargetParamsType = "server"
 )

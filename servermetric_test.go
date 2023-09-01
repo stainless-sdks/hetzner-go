@@ -26,7 +26,7 @@ func TestServerMetricListWithOptionalParams(t *testing.T) {
 		hetzner.ServerMetricListParams{
 			End:   hetzner.F("string"),
 			Start: hetzner.F("string"),
-			Type:  hetzner.F(hetzner.ServerMetricListParamsTypeCpu),
+			Type:  hetzner.F(hetzner.ServerMetricListParamsTypeCPU),
 			Step:  hetzner.F("string"),
 		},
 	)

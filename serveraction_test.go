@@ -86,7 +86,7 @@ func TestServerActionAddToPlacementGroup(t *testing.T) {
 	}
 }
 
-func TestServerActionAttachIso(t *testing.T) {
+func TestServerActionAttachISO(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -94,11 +94,11 @@ func TestServerActionAttachIso(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.Servers.Actions.AttachIso(
+	_, err := client.Servers.Actions.AttachISO(
 		context.TODO(),
 		int64(0),
-		hetzner.ServerActionAttachIsoParams{
-			Iso: hetzner.F("FreeBSD-11.0-RELEASE-amd64-dvd1"),
+		hetzner.ServerActionAttachISOParams{
+			ISO: hetzner.F("FreeBSD-11.0-RELEASE-amd64-dvd1"),
 		},
 	)
 	if err != nil {
@@ -123,8 +123,8 @@ func TestServerActionAttachToNetworkWithOptionalParams(t *testing.T) {
 		int64(0),
 		hetzner.ServerActionAttachToNetworkParams{
 			Network:  hetzner.F(int64(4711)),
-			AliasIps: hetzner.F([]string{"string", "string", "string"}),
-			Ip:       hetzner.F("10.0.1.1"),
+			AliasIPs: hetzner.F([]string{"string", "string", "string"}),
+			IP:       hetzner.F("10.0.1.1"),
 		},
 	)
 	if err != nil {
@@ -136,7 +136,7 @@ func TestServerActionAttachToNetworkWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestServerActionChangeAliasIps(t *testing.T) {
+func TestServerActionChangeAliasIPs(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -144,11 +144,11 @@ func TestServerActionChangeAliasIps(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.Servers.Actions.ChangeAliasIps(
+	_, err := client.Servers.Actions.ChangeAliasIPs(
 		context.TODO(),
 		int64(0),
-		hetzner.ServerActionChangeAliasIpsParams{
-			AliasIps: hetzner.F([]string{"string", "string", "string"}),
+		hetzner.ServerActionChangeAliasIPsParams{
+			AliasIPs: hetzner.F([]string{"string", "string", "string"}),
 			Network:  hetzner.F(int64(4711)),
 		},
 	)
@@ -161,7 +161,7 @@ func TestServerActionChangeAliasIps(t *testing.T) {
 	}
 }
 
-func TestServerActionChangeDnsPtr(t *testing.T) {
+func TestServerActionChangeDNSPtr(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -169,12 +169,12 @@ func TestServerActionChangeDnsPtr(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.Servers.Actions.ChangeDnsPtr(
+	_, err := client.Servers.Actions.ChangeDNSPtr(
 		context.TODO(),
 		int64(0),
-		hetzner.ServerActionChangeDnsPtrParams{
-			DnsPtr: hetzner.F("server01.example.com"),
-			Ip:     hetzner.F("1.2.3.4"),
+		hetzner.ServerActionChangeDNSPtrParams{
+			DNSPtr: hetzner.F("server01.example.com"),
+			IP:     hetzner.F("1.2.3.4"),
 		},
 	)
 	if err != nil {
@@ -288,7 +288,7 @@ func TestServerActionDetachFromNetwork(t *testing.T) {
 	}
 }
 
-func TestServerActionDetachIso(t *testing.T) {
+func TestServerActionDetachISO(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -296,7 +296,7 @@ func TestServerActionDetachIso(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.Servers.Actions.DetachIso(context.TODO(), int64(0))
+	_, err := client.Servers.Actions.DetachISO(context.TODO(), int64(0))
 	if err != nil {
 		var apierr *hetzner.Error
 		if errors.As(err, &apierr) {

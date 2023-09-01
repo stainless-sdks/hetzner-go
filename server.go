@@ -118,7 +118,7 @@ type Server struct {
 	// Inbound Traffic for the current billing period in bytes
 	IngoingTraffic int64 `json:"ingoing_traffic,required,nullable"`
 	// ISO Image that is attached to this Server. Null if no ISO is attached.
-	Iso ServerIso `json:"iso,required,nullable"`
+	ISO ServerISO `json:"iso,required,nullable"`
 	// User-defined labels (key-value pairs)
 	Labels map[string]string `json:"labels,required"`
 	// True if Server has been locked and is not available to user
@@ -160,7 +160,7 @@ type serverJSON struct {
 	Image           apijson.Field
 	IncludedTraffic apijson.Field
 	IngoingTraffic  apijson.Field
-	Iso             apijson.Field
+	ISO             apijson.Field
 	Labels          apijson.Field
 	Locked          apijson.Field
 	Name            apijson.Field
@@ -441,12 +441,12 @@ const (
 )
 
 // ISO Image that is attached to this Server. Null if no ISO is attached.
-type ServerIso struct {
+type ServerISO struct {
 	// ID of the Resource
 	ID int64 `json:"id,required"`
 	// Type of cpu architecture this iso is compatible with. Null indicates no
 	// restriction on the architecture (wildcard).
-	Architecture ServerIsoArchitecture `json:"architecture,required,nullable"`
+	Architecture ServerISOArchitecture `json:"architecture,required,nullable"`
 	// ISO 8601 timestamp of deprecation, null if ISO is still available. After the
 	// deprecation time it will no longer be possible to attach the ISO to Servers.
 	Deprecated string `json:"deprecated,required,nullable"`
@@ -455,12 +455,12 @@ type ServerIso struct {
 	// Unique identifier of the ISO. Only set for public ISOs
 	Name string `json:"name,required,nullable"`
 	// Type of the ISO
-	Type ServerIsoType `json:"type,required"`
-	JSON serverIsoJSON
+	Type ServerISOType `json:"type,required"`
+	JSON serverISOJSON
 }
 
-// serverIsoJSON contains the JSON metadata for the struct [ServerIso]
-type serverIsoJSON struct {
+// serverISOJSON contains the JSON metadata for the struct [ServerISO]
+type serverISOJSON struct {
 	ID           apijson.Field
 	Architecture apijson.Field
 	Deprecated   apijson.Field
@@ -471,30 +471,30 @@ type serverIsoJSON struct {
 	ExtraFields  map[string]apijson.Field
 }
 
-func (r *ServerIso) UnmarshalJSON(data []byte) (err error) {
+func (r *ServerISO) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Type of cpu architecture this iso is compatible with. Null indicates no
 // restriction on the architecture (wildcard).
-type ServerIsoArchitecture string
+type ServerISOArchitecture string
 
 const (
-	ServerIsoArchitectureArm ServerIsoArchitecture = "arm"
-	ServerIsoArchitectureX86 ServerIsoArchitecture = "x86"
+	ServerISOArchitectureArm ServerISOArchitecture = "arm"
+	ServerISOArchitectureX86 ServerISOArchitecture = "x86"
 )
 
 // Type of the ISO
-type ServerIsoType string
+type ServerISOType string
 
 const (
-	ServerIsoTypePrivate ServerIsoType = "private"
-	ServerIsoTypePublic  ServerIsoType = "public"
+	ServerISOTypePrivate ServerISOType = "private"
+	ServerISOTypePublic  ServerISOType = "public"
 )
 
 type ServerPrivateNet struct {
-	AliasIps   []string `json:"alias_ips"`
-	Ip         string   `json:"ip"`
+	AliasIPs   []string `json:"alias_ips"`
+	IP         string   `json:"ip"`
 	MacAddress string   `json:"mac_address"`
 	// ID of the Network
 	Network int64 `json:"network"`
@@ -504,8 +504,8 @@ type ServerPrivateNet struct {
 // serverPrivateNetJSON contains the JSON metadata for the struct
 // [ServerPrivateNet]
 type serverPrivateNetJSON struct {
-	AliasIps    apijson.Field
-	Ip          apijson.Field
+	AliasIPs    apijson.Field
+	IP          apijson.Field
 	MacAddress  apijson.Field
 	Network     apijson.Field
 	raw         string
@@ -542,7 +542,7 @@ func (r *ServerProtection) UnmarshalJSON(data []byte) (err error) {
 // `public_net->ipv4->ip`
 type ServerPublicNet struct {
 	// IDs of Floating IPs assigned to this Server
-	FloatingIps []int64 `json:"floating_ips,required"`
+	FloatingIPs []int64 `json:"floating_ips,required"`
 	// IP address (v4) and its reverse DNS entry of this Server
 	Ipv4 ServerPublicNetIpv4 `json:"ipv4,required,nullable"`
 	// IPv6 network assigned to this Server and its reverse DNS entry
@@ -554,7 +554,7 @@ type ServerPublicNet struct {
 
 // serverPublicNetJSON contains the JSON metadata for the struct [ServerPublicNet]
 type serverPublicNetJSON struct {
-	FloatingIps apijson.Field
+	FloatingIPs apijson.Field
 	Ipv4        apijson.Field
 	Ipv6        apijson.Field
 	Firewalls   apijson.Field
@@ -571,9 +571,9 @@ type ServerPublicNetIpv4 struct {
 	// If the IP is blocked by our anti abuse dept
 	Blocked bool `json:"blocked,required"`
 	// Reverse DNS PTR entry for the IPv4 addresses of this Server
-	DnsPtr string `json:"dns_ptr,required"`
+	DNSPtr string `json:"dns_ptr,required"`
 	// IP address (v4) of this Server
-	Ip string `json:"ip,required"`
+	IP string `json:"ip,required"`
 	// ID of the Resource
 	ID   int64 `json:"id"`
 	JSON serverPublicNetIpv4JSON
@@ -583,8 +583,8 @@ type ServerPublicNetIpv4 struct {
 // [ServerPublicNetIpv4]
 type serverPublicNetIpv4JSON struct {
 	Blocked     apijson.Field
-	DnsPtr      apijson.Field
-	Ip          apijson.Field
+	DNSPtr      apijson.Field
+	IP          apijson.Field
 	ID          apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -599,9 +599,9 @@ type ServerPublicNetIpv6 struct {
 	// If the IP is blocked by our anti abuse dept
 	Blocked bool `json:"blocked,required"`
 	// Reverse DNS PTR entries for the IPv6 addresses of this Server, `null` by default
-	DnsPtr []ServerPublicNetIpv6DnsPtr `json:"dns_ptr,required,nullable"`
+	DNSPtr []ServerPublicNetIpv6DNSPtr `json:"dns_ptr,required,nullable"`
 	// IP address (v6) of this Server
-	Ip string `json:"ip,required"`
+	IP string `json:"ip,required"`
 	// ID of the Resource
 	ID   int64 `json:"id"`
 	JSON serverPublicNetIpv6JSON
@@ -611,8 +611,8 @@ type ServerPublicNetIpv6 struct {
 // [ServerPublicNetIpv6]
 type serverPublicNetIpv6JSON struct {
 	Blocked     apijson.Field
-	DnsPtr      apijson.Field
-	Ip          apijson.Field
+	DNSPtr      apijson.Field
+	IP          apijson.Field
 	ID          apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -622,25 +622,25 @@ func (r *ServerPublicNetIpv6) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type ServerPublicNetIpv6DnsPtr struct {
+type ServerPublicNetIpv6DNSPtr struct {
 	// DNS pointer for the specific IP address
-	DnsPtr string `json:"dns_ptr,required"`
+	DNSPtr string `json:"dns_ptr,required"`
 	// Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the
 	// reverse DNS entry has been set up
-	Ip   string `json:"ip,required"`
-	JSON serverPublicNetIpv6DnsPtrJSON
+	IP   string `json:"ip,required"`
+	JSON serverPublicNetIpv6DNSPtrJSON
 }
 
-// serverPublicNetIpv6DnsPtrJSON contains the JSON metadata for the struct
-// [ServerPublicNetIpv6DnsPtr]
-type serverPublicNetIpv6DnsPtrJSON struct {
-	DnsPtr      apijson.Field
-	Ip          apijson.Field
+// serverPublicNetIpv6DNSPtrJSON contains the JSON metadata for the struct
+// [ServerPublicNetIpv6DNSPtr]
+type serverPublicNetIpv6DNSPtrJSON struct {
+	DNSPtr      apijson.Field
+	IP          apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *ServerPublicNetIpv6DnsPtr) UnmarshalJSON(data []byte) (err error) {
+func (r *ServerPublicNetIpv6DNSPtr) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -680,7 +680,7 @@ type ServerServerType struct {
 	// Number of cpu cores a Server of this type will have
 	Cores int64 `json:"cores,required"`
 	// Type of cpu
-	CpuType CpuType `json:"cpu_type,required"`
+	CPUType CPUType `json:"cpu_type,required"`
 	// True if Server type is deprecated
 	Deprecated bool `json:"deprecated,required,nullable"`
 	// Description of the Server type
@@ -704,7 +704,7 @@ type ServerServerType struct {
 type serverServerTypeJSON struct {
 	ID          apijson.Field
 	Cores       apijson.Field
-	CpuType     apijson.Field
+	CPUType     apijson.Field
 	Deprecated  apijson.Field
 	Description apijson.Field
 	Disk        apijson.Field

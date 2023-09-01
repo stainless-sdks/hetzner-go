@@ -16,22 +16,22 @@ import (
 	"github.com/hetzner/hetzner-go/option"
 )
 
-// FloatingIpService contains methods and other services that help with interacting
+// FloatingIPService contains methods and other services that help with interacting
 // with the hetzner API. Note, unlike clients, this service does not read variables
 // from the environment automatically. You should not instantiate this service
-// directly, and instead use the [NewFloatingIpService] method instead.
-type FloatingIpService struct {
+// directly, and instead use the [NewFloatingIPService] method instead.
+type FloatingIPService struct {
 	Options []option.RequestOption
-	Actions *FloatingIpActionService
+	Actions *FloatingIPActionService
 }
 
-// NewFloatingIpService generates a new service that applies the given options to
+// NewFloatingIPService generates a new service that applies the given options to
 // each request. These options are applied after the parent client's options (if
 // there is one), and before any request-specific options.
-func NewFloatingIpService(opts ...option.RequestOption) (r *FloatingIpService) {
-	r = &FloatingIpService{}
+func NewFloatingIPService(opts ...option.RequestOption) (r *FloatingIPService) {
+	r = &FloatingIPService{}
 	r.Options = opts
-	r.Actions = NewFloatingIpActionService(opts...)
+	r.Actions = NewFloatingIPActionService(opts...)
 	return
 }
 
@@ -41,7 +41,7 @@ func NewFloatingIpService(opts ...option.RequestOption) (r *FloatingIpService) {
 // IP shall be created in. Note that a Floating IP can be assigned to a Server in
 // any Location later on. For optimal routing it is advised to use the Floating IP
 // in the same Location it was created in.
-func (r *FloatingIpService) New(ctx context.Context, body FloatingIpNewParams, opts ...option.RequestOption) (res *FloatingIpNewResponse, err error) {
+func (r *FloatingIPService) New(ctx context.Context, body FloatingIPNewParams, opts ...option.RequestOption) (res *FloatingIPNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "floating_ips"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -49,7 +49,7 @@ func (r *FloatingIpService) New(ctx context.Context, body FloatingIpNewParams, o
 }
 
 // Returns a specific Floating IP object.
-func (r *FloatingIpService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *FloatingIpGetResponse, err error) {
+func (r *FloatingIPService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *FloatingIPGetResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("floating_ips/%v", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -60,7 +60,7 @@ func (r *FloatingIpService) Get(ctx context.Context, id int64, opts ...option.Re
 // labels, the Floating IP’s current set of labels will be replaced with the labels
 // provided in the request body. So, for example, if you want to add a new label,
 // you have to provide all existing labels plus the new label in the request body.
-func (r *FloatingIpService) Update(ctx context.Context, id int64, body FloatingIpUpdateParams, opts ...option.RequestOption) (res *FloatingIpUpdateResponse, err error) {
+func (r *FloatingIPService) Update(ctx context.Context, id int64, body FloatingIPUpdateParams, opts ...option.RequestOption) (res *FloatingIPUpdateResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("floating_ips/%v", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
@@ -68,7 +68,7 @@ func (r *FloatingIpService) Update(ctx context.Context, id int64, body FloatingI
 }
 
 // Returns all Floating IP objects.
-func (r *FloatingIpService) List(ctx context.Context, query FloatingIpListParams, opts ...option.RequestOption) (res *shared.FloatingIpsPage[FloatingIp], err error) {
+func (r *FloatingIPService) List(ctx context.Context, query FloatingIPListParams, opts ...option.RequestOption) (res *shared.FloatingIPsPage[FloatingIP], err error) {
 	var raw *http.Response
 	opts = append(r.Options, opts...)
 	opts = append([]option.RequestOption{option.WithResponseInto(&raw)}, opts...)
@@ -86,13 +86,13 @@ func (r *FloatingIpService) List(ctx context.Context, query FloatingIpListParams
 }
 
 // Returns all Floating IP objects.
-func (r *FloatingIpService) ListAutoPaging(ctx context.Context, query FloatingIpListParams, opts ...option.RequestOption) *shared.FloatingIpsPageAutoPager[FloatingIp] {
-	return shared.NewFloatingIpsPageAutoPager(r.List(ctx, query, opts...))
+func (r *FloatingIPService) ListAutoPaging(ctx context.Context, query FloatingIPListParams, opts ...option.RequestOption) *shared.FloatingIPsPageAutoPager[FloatingIP] {
+	return shared.NewFloatingIPsPageAutoPager(r.List(ctx, query, opts...))
 }
 
 // Deletes a Floating IP. If it is currently assigned to a Server it will
 // automatically get unassigned.
-func (r *FloatingIpService) Delete(ctx context.Context, id int64, opts ...option.RequestOption) (err error) {
+func (r *FloatingIPService) Delete(ctx context.Context, id int64, opts ...option.RequestOption) (err error) {
 	opts = append(r.Options[:], opts...)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	path := fmt.Sprintf("floating_ips/%v", id)
@@ -100,7 +100,7 @@ func (r *FloatingIpService) Delete(ctx context.Context, id int64, opts ...option
 	return
 }
 
-type FloatingIp struct {
+type FloatingIP struct {
 	// ID of the Resource
 	ID int64 `json:"id,required"`
 	// Whether the IP is blocked
@@ -110,36 +110,36 @@ type FloatingIp struct {
 	// Description of the Resource
 	Description string `json:"description,required,nullable"`
 	// Array of reverse DNS entries
-	DnsPtr []FloatingIpDnsPtr `json:"dns_ptr,required"`
+	DNSPtr []FloatingIPDNSPtr `json:"dns_ptr,required"`
 	// Location the Floating IP was created in. Routing is optimized for this Location.
 	// | Location of the Volume. Volume can only be attached to Servers in the same
 	// Location.
-	HomeLocation FloatingIpHomeLocation `json:"home_location,required"`
+	HomeLocation FloatingIPHomeLocation `json:"home_location,required"`
 	// IP address
-	Ip string `json:"ip,required"`
+	IP string `json:"ip,required"`
 	// User-defined labels (key-value pairs)
 	Labels map[string]string `json:"labels,required"`
 	// Name of the Resource. Must be unique per Project.
 	Name string `json:"name,required"`
 	// Protection configuration for the Resource
-	Protection FloatingIpProtection `json:"protection,required"`
+	Protection FloatingIPProtection `json:"protection,required"`
 	// ID of the Server the Floating IP is assigned to, null if it is not assigned at
 	// all
 	Server int64 `json:"server,required,nullable"`
 	// The type of the IP
-	Type FloatingIpType `json:"type,required"`
-	JSON floatingIpJSON
+	Type FloatingIPType `json:"type,required"`
+	JSON floatingIPJSON
 }
 
-// floatingIpJSON contains the JSON metadata for the struct [FloatingIp]
-type floatingIpJSON struct {
+// floatingIPJSON contains the JSON metadata for the struct [FloatingIP]
+type floatingIPJSON struct {
 	ID           apijson.Field
 	Blocked      apijson.Field
 	Created      apijson.Field
 	Description  apijson.Field
-	DnsPtr       apijson.Field
+	DNSPtr       apijson.Field
 	HomeLocation apijson.Field
-	Ip           apijson.Field
+	IP           apijson.Field
 	Labels       apijson.Field
 	Name         apijson.Field
 	Protection   apijson.Field
@@ -149,36 +149,36 @@ type floatingIpJSON struct {
 	ExtraFields  map[string]apijson.Field
 }
 
-func (r *FloatingIp) UnmarshalJSON(data []byte) (err error) {
+func (r *FloatingIP) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type FloatingIpDnsPtr struct {
+type FloatingIPDNSPtr struct {
 	// DNS pointer for the specific IP address
-	DnsPtr string `json:"dns_ptr,required"`
+	DNSPtr string `json:"dns_ptr,required"`
 	// Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the
 	// reverse DNS entry has been set up
-	Ip   string `json:"ip,required"`
-	JSON floatingIpDnsPtrJSON
+	IP   string `json:"ip,required"`
+	JSON floatingIPDNSPtrJSON
 }
 
-// floatingIpDnsPtrJSON contains the JSON metadata for the struct
-// [FloatingIpDnsPtr]
-type floatingIpDnsPtrJSON struct {
-	DnsPtr      apijson.Field
-	Ip          apijson.Field
+// floatingIPDNSPtrJSON contains the JSON metadata for the struct
+// [FloatingIPDNSPtr]
+type floatingIPDNSPtrJSON struct {
+	DNSPtr      apijson.Field
+	IP          apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *FloatingIpDnsPtr) UnmarshalJSON(data []byte) (err error) {
+func (r *FloatingIPDNSPtr) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Location the Floating IP was created in. Routing is optimized for this Location.
 // | Location of the Volume. Volume can only be attached to Servers in the same
 // Location.
-type FloatingIpHomeLocation struct {
+type FloatingIPHomeLocation struct {
 	// ID of the Location
 	ID int64 `json:"id,required"`
 	// City the Location is closest to
@@ -195,12 +195,12 @@ type FloatingIpHomeLocation struct {
 	Name string `json:"name,required"`
 	// Name of network zone this Location resides in
 	NetworkZone string `json:"network_zone,required"`
-	JSON        floatingIpHomeLocationJSON
+	JSON        floatingIPHomeLocationJSON
 }
 
-// floatingIpHomeLocationJSON contains the JSON metadata for the struct
-// [FloatingIpHomeLocation]
-type floatingIpHomeLocationJSON struct {
+// floatingIPHomeLocationJSON contains the JSON metadata for the struct
+// [FloatingIPHomeLocation]
+type floatingIPHomeLocationJSON struct {
 	ID          apijson.Field
 	City        apijson.Field
 	Country     apijson.Field
@@ -213,98 +213,98 @@ type floatingIpHomeLocationJSON struct {
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *FloatingIpHomeLocation) UnmarshalJSON(data []byte) (err error) {
+func (r *FloatingIPHomeLocation) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Protection configuration for the Resource
-type FloatingIpProtection struct {
+type FloatingIPProtection struct {
 	// If true, prevents the Resource from being deleted | If true, prevents the
 	// Network from being deleted
 	Delete bool `json:"delete,required"`
-	JSON   floatingIpProtectionJSON
+	JSON   floatingIPProtectionJSON
 }
 
-// floatingIpProtectionJSON contains the JSON metadata for the struct
-// [FloatingIpProtection]
-type floatingIpProtectionJSON struct {
+// floatingIPProtectionJSON contains the JSON metadata for the struct
+// [FloatingIPProtection]
+type floatingIPProtectionJSON struct {
 	Delete      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *FloatingIpProtection) UnmarshalJSON(data []byte) (err error) {
+func (r *FloatingIPProtection) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // The type of the IP
-type FloatingIpType string
+type FloatingIPType string
 
 const (
-	FloatingIpTypeIpv4 FloatingIpType = "ipv4"
-	FloatingIpTypeIpv6 FloatingIpType = "ipv6"
+	FloatingIPTypeIpv4 FloatingIPType = "ipv4"
+	FloatingIPTypeIpv6 FloatingIPType = "ipv6"
 )
 
 // Response to POST https://api.hetzner.cloud/v1/floating_ips
-type FloatingIpNewResponse struct {
-	FloatingIp FloatingIp `json:"floating_ip,required"`
+type FloatingIPNewResponse struct {
+	FloatingIP FloatingIP `json:"floating_ip,required"`
 	// Actions show the results and progress of asynchronous requests to the API.
 	Action shared.Action `json:"action"`
-	JSON   floatingIpNewResponseJSON
+	JSON   floatingIPNewResponseJSON
 }
 
-// floatingIpNewResponseJSON contains the JSON metadata for the struct
-// [FloatingIpNewResponse]
-type floatingIpNewResponseJSON struct {
-	FloatingIp  apijson.Field
+// floatingIPNewResponseJSON contains the JSON metadata for the struct
+// [FloatingIPNewResponse]
+type floatingIPNewResponseJSON struct {
+	FloatingIP  apijson.Field
 	Action      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *FloatingIpNewResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *FloatingIPNewResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Response to GET https://api.hetzner.cloud/v1/floating_ips/{id}
-type FloatingIpGetResponse struct {
-	FloatingIp FloatingIp `json:"floating_ip,required"`
-	JSON       floatingIpGetResponseJSON
+type FloatingIPGetResponse struct {
+	FloatingIP FloatingIP `json:"floating_ip,required"`
+	JSON       floatingIPGetResponseJSON
 }
 
-// floatingIpGetResponseJSON contains the JSON metadata for the struct
-// [FloatingIpGetResponse]
-type floatingIpGetResponseJSON struct {
-	FloatingIp  apijson.Field
+// floatingIPGetResponseJSON contains the JSON metadata for the struct
+// [FloatingIPGetResponse]
+type floatingIPGetResponseJSON struct {
+	FloatingIP  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *FloatingIpGetResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *FloatingIPGetResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Response to PUT https://api.hetzner.cloud/v1/floating_ips/{id}
-type FloatingIpUpdateResponse struct {
-	FloatingIp FloatingIp `json:"floating_ip,required"`
-	JSON       floatingIpUpdateResponseJSON
+type FloatingIPUpdateResponse struct {
+	FloatingIP FloatingIP `json:"floating_ip,required"`
+	JSON       floatingIPUpdateResponseJSON
 }
 
-// floatingIpUpdateResponseJSON contains the JSON metadata for the struct
-// [FloatingIpUpdateResponse]
-type floatingIpUpdateResponseJSON struct {
-	FloatingIp  apijson.Field
+// floatingIPUpdateResponseJSON contains the JSON metadata for the struct
+// [FloatingIPUpdateResponse]
+type floatingIPUpdateResponseJSON struct {
+	FloatingIP  apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *FloatingIpUpdateResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *FloatingIPUpdateResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type FloatingIpNewParams struct {
+type FloatingIPNewParams struct {
 	// The type of the IP
-	Type        param.Field[FloatingIpNewParamsType] `json:"type,required"`
+	Type        param.Field[FloatingIPNewParamsType] `json:"type,required"`
 	Description param.Field[string]                  `json:"description"`
 	// Home Location (routing is optimized for that Location). Only optional if Server
 	// argument is passed.
@@ -316,19 +316,19 @@ type FloatingIpNewParams struct {
 	Server param.Field[int64] `json:"server"`
 }
 
-func (r FloatingIpNewParams) MarshalJSON() (data []byte, err error) {
+func (r FloatingIPNewParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
 // The type of the IP
-type FloatingIpNewParamsType string
+type FloatingIPNewParamsType string
 
 const (
-	FloatingIpNewParamsTypeIpv4 FloatingIpNewParamsType = "ipv4"
-	FloatingIpNewParamsTypeIpv6 FloatingIpNewParamsType = "ipv6"
+	FloatingIPNewParamsTypeIpv4 FloatingIPNewParamsType = "ipv4"
+	FloatingIPNewParamsTypeIpv6 FloatingIPNewParamsType = "ipv6"
 )
 
-type FloatingIpUpdateParams struct {
+type FloatingIPUpdateParams struct {
 	// New Description to set
 	Description param.Field[string] `json:"description"`
 	// User-defined labels (key-value pairs)
@@ -337,11 +337,11 @@ type FloatingIpUpdateParams struct {
 	Name param.Field[string] `json:"name"`
 }
 
-func (r FloatingIpUpdateParams) MarshalJSON() (data []byte, err error) {
+func (r FloatingIPUpdateParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type FloatingIpListParams struct {
+type FloatingIPListParams struct {
 	// Can be used to filter Floating IPs by labels. The response will only contain
 	// Floating IPs matching the label selector.
 	LabelSelector param.Field[string] `query:"label_selector"`
@@ -355,11 +355,11 @@ type FloatingIpListParams struct {
 	PerPage param.Field[int64] `query:"per_page"`
 	// Can be used multiple times. Choices id id:asc id:desc created created:asc
 	// created:desc
-	Sort param.Field[FloatingIpListParamsSort] `query:"sort"`
+	Sort param.Field[FloatingIPListParamsSort] `query:"sort"`
 }
 
-// URLQuery serializes [FloatingIpListParams]'s query parameters as `url.Values`.
-func (r FloatingIpListParams) URLQuery() (v url.Values) {
+// URLQuery serializes [FloatingIPListParams]'s query parameters as `url.Values`.
+func (r FloatingIPListParams) URLQuery() (v url.Values) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -368,13 +368,13 @@ func (r FloatingIpListParams) URLQuery() (v url.Values) {
 
 // Can be used multiple times. Choices id id:asc id:desc created created:asc
 // created:desc
-type FloatingIpListParamsSort string
+type FloatingIPListParamsSort string
 
 const (
-	FloatingIpListParamsSortID          FloatingIpListParamsSort = "id"
-	FloatingIpListParamsSortIDAsc       FloatingIpListParamsSort = "id:asc"
-	FloatingIpListParamsSortIDDesc      FloatingIpListParamsSort = "id:desc"
-	FloatingIpListParamsSortCreated     FloatingIpListParamsSort = "created"
-	FloatingIpListParamsSortCreatedAsc  FloatingIpListParamsSort = "created:asc"
-	FloatingIpListParamsSortCreatedDesc FloatingIpListParamsSort = "created:desc"
+	FloatingIPListParamsSortID          FloatingIPListParamsSort = "id"
+	FloatingIPListParamsSortIDAsc       FloatingIPListParamsSort = "id:asc"
+	FloatingIPListParamsSortIDDesc      FloatingIPListParamsSort = "id:desc"
+	FloatingIPListParamsSortCreated     FloatingIPListParamsSort = "created"
+	FloatingIPListParamsSortCreatedAsc  FloatingIPListParamsSort = "created:asc"
+	FloatingIPListParamsSortCreatedDesc FloatingIPListParamsSort = "created:desc"
 )

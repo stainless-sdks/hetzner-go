@@ -21,7 +21,7 @@ func TestNetworkNewWithOptionalParams(t *testing.T) {
 		option.WithAPIToken("APIToken"),
 	)
 	_, err := client.Networks.New(context.TODO(), hetzner.NetworkNewParams{
-		IpRange:               hetzner.F("10.0.0.0/16"),
+		IPRange:               hetzner.F("10.0.0.0/16"),
 		Name:                  hetzner.F("mynet"),
 		ExposeRoutesToVswitch: hetzner.F(false),
 		Labels: hetzner.F(map[string]string{
@@ -38,17 +38,17 @@ func TestNetworkNewWithOptionalParams(t *testing.T) {
 			Gateway:     hetzner.F("10.0.1.1"),
 		}}),
 		Subnets: hetzner.F([]hetzner.NetworkNewParamsSubnet{{
-			IpRange:     hetzner.F("10.0.1.0/24"),
+			IPRange:     hetzner.F("10.0.1.0/24"),
 			NetworkZone: hetzner.F("eu-central"),
 			Type:        hetzner.F(hetzner.NetworkNewParamsSubnetsTypeCloud),
 			VswitchID:   hetzner.F(int64(1000)),
 		}, {
-			IpRange:     hetzner.F("10.0.1.0/24"),
+			IPRange:     hetzner.F("10.0.1.0/24"),
 			NetworkZone: hetzner.F("eu-central"),
 			Type:        hetzner.F(hetzner.NetworkNewParamsSubnetsTypeCloud),
 			VswitchID:   hetzner.F(int64(1000)),
 		}, {
-			IpRange:     hetzner.F("10.0.1.0/24"),
+			IPRange:     hetzner.F("10.0.1.0/24"),
 			NetworkZone: hetzner.F("eu-central"),
 			Type:        hetzner.F(hetzner.NetworkNewParamsSubnetsTypeCloud),
 			VswitchID:   hetzner.F(int64(1000)),

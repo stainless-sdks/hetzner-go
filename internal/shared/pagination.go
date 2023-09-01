@@ -12,32 +12,32 @@ import (
 )
 
 // Response to GET https://api.hetzner.cloud/v1/floating_ips
-type FloatingIpsPage[T any] struct {
-	FloatingIps []T `json:"floating_ips,required"`
+type FloatingIPsPage[T any] struct {
+	FloatingIPs []T `json:"floating_ips,required"`
 	// Metadata contained in the response
 	Meta ResponseMeta `json:"meta,required"`
-	JSON floatingIpsPageJSON
+	JSON floatingIPsPageJSON
 	cfg  *requestconfig.RequestConfig
 	res  *http.Response
 }
 
-// floatingIpsPageJSON contains the JSON metadata for the struct
-// [FloatingIpsPage[T]]
-type floatingIpsPageJSON struct {
-	FloatingIps apijson.Field
+// floatingIPsPageJSON contains the JSON metadata for the struct
+// [FloatingIPsPage[T]]
+type floatingIPsPageJSON struct {
+	FloatingIPs apijson.Field
 	Meta        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *FloatingIpsPage[T]) UnmarshalJSON(data []byte) (err error) {
+func (r *FloatingIPsPage[T]) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // NextPage returns the next page as defined by this pagination style. When there
 // is no next page, this function will return a 'nil' for the page value, but will
 // not return an error
-func (r *FloatingIpsPage[T]) GetNextPage() (res *FloatingIpsPage[T], err error) {
+func (r *FloatingIPsPage[T]) GetNextPage() (res *FloatingIPsPage[T], err error) {
 	currentPage := r.Meta.Pagination.Page
 	cfg := r.cfg.Clone(context.Background())
 	query := cfg.Request.URL.Query()
@@ -54,52 +54,52 @@ func (r *FloatingIpsPage[T]) GetNextPage() (res *FloatingIpsPage[T], err error) 
 	return res, nil
 }
 
-func (r *FloatingIpsPage[T]) SetPageConfig(cfg *requestconfig.RequestConfig, res *http.Response) {
+func (r *FloatingIPsPage[T]) SetPageConfig(cfg *requestconfig.RequestConfig, res *http.Response) {
 	r.cfg = cfg
 	r.res = res
 }
 
-type FloatingIpsPageAutoPager[T any] struct {
-	page *FloatingIpsPage[T]
+type FloatingIPsPageAutoPager[T any] struct {
+	page *FloatingIPsPage[T]
 	cur  T
 	idx  int
 	run  int
 	err  error
 }
 
-func NewFloatingIpsPageAutoPager[T any](page *FloatingIpsPage[T], err error) *FloatingIpsPageAutoPager[T] {
-	return &FloatingIpsPageAutoPager[T]{
+func NewFloatingIPsPageAutoPager[T any](page *FloatingIPsPage[T], err error) *FloatingIPsPageAutoPager[T] {
+	return &FloatingIPsPageAutoPager[T]{
 		page: page,
 		err:  err,
 	}
 }
 
-func (r *FloatingIpsPageAutoPager[T]) Next() bool {
-	if r.page == nil || len(r.page.FloatingIps) == 0 {
+func (r *FloatingIPsPageAutoPager[T]) Next() bool {
+	if r.page == nil || len(r.page.FloatingIPs) == 0 {
 		return false
 	}
-	if r.idx >= len(r.page.FloatingIps) {
+	if r.idx >= len(r.page.FloatingIPs) {
 		r.idx = 0
 		r.page, r.err = r.page.GetNextPage()
 		if r.err != nil || r.page == nil {
 			return false
 		}
 	}
-	r.cur = r.page.FloatingIps[r.idx]
+	r.cur = r.page.FloatingIPs[r.idx]
 	r.run += 1
 	r.idx += 1
 	return true
 }
 
-func (r *FloatingIpsPageAutoPager[T]) Current() T {
+func (r *FloatingIPsPageAutoPager[T]) Current() T {
 	return r.cur
 }
 
-func (r *FloatingIpsPageAutoPager[T]) Err() error {
+func (r *FloatingIPsPageAutoPager[T]) Err() error {
 	return r.err
 }
 
-func (r *FloatingIpsPageAutoPager[T]) Index() int {
+func (r *FloatingIPsPageAutoPager[T]) Index() int {
 	return r.run
 }
 

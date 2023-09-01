@@ -13,7 +13,7 @@ import (
 	"github.com/hetzner/hetzner-go/option"
 )
 
-func TestPrimaryIpActionGet(t *testing.T) {
+func TestPrimaryIPActionGet(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -21,7 +21,7 @@ func TestPrimaryIpActionGet(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.PrimaryIps.Actions.Get(context.TODO(), int64(0))
+	_, err := client.PrimaryIPs.Actions.Get(context.TODO(), int64(0))
 	if err != nil {
 		var apierr *hetzner.Error
 		if errors.As(err, &apierr) {
@@ -31,7 +31,7 @@ func TestPrimaryIpActionGet(t *testing.T) {
 	}
 }
 
-func TestPrimaryIpActionListWithOptionalParams(t *testing.T) {
+func TestPrimaryIPActionListWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -39,7 +39,7 @@ func TestPrimaryIpActionListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.PrimaryIps.Actions.List(context.TODO(), hetzner.PrimaryIpActionListParams{
+	_, err := client.PrimaryIPs.Actions.List(context.TODO(), hetzner.PrimaryIPActionListParams{
 		ID:      hetzner.F(int64(0)),
 		Page:    hetzner.F(int64(1)),
 		PerPage: hetzner.F(int64(1)),
@@ -55,7 +55,7 @@ func TestPrimaryIpActionListWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestPrimaryIpActionAssign(t *testing.T) {
+func TestPrimaryIPActionAssign(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -63,12 +63,12 @@ func TestPrimaryIpActionAssign(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.PrimaryIps.Actions.Assign(
+	_, err := client.PrimaryIPs.Actions.Assign(
 		context.TODO(),
 		int64(0),
-		hetzner.PrimaryIpActionAssignParams{
+		hetzner.PrimaryIPActionAssignParams{
 			AssigneeID:   hetzner.F(int64(4711)),
-			AssigneeType: hetzner.F(hetzner.PrimaryIpActionAssignParamsAssigneeTypeServer),
+			AssigneeType: hetzner.F(hetzner.PrimaryIPActionAssignParamsAssigneeTypeServer),
 		},
 	)
 	if err != nil {
@@ -80,7 +80,7 @@ func TestPrimaryIpActionAssign(t *testing.T) {
 	}
 }
 
-func TestPrimaryIpActionChangeDnsPtr(t *testing.T) {
+func TestPrimaryIPActionChangeDNSPtr(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -88,12 +88,12 @@ func TestPrimaryIpActionChangeDnsPtr(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.PrimaryIps.Actions.ChangeDnsPtr(
+	_, err := client.PrimaryIPs.Actions.ChangeDNSPtr(
 		context.TODO(),
 		int64(0),
-		hetzner.PrimaryIpActionChangeDnsPtrParams{
-			DnsPtr: hetzner.F("server02.example.com"),
-			Ip:     hetzner.F("1.2.3.4"),
+		hetzner.PrimaryIPActionChangeDNSPtrParams{
+			DNSPtr: hetzner.F("server02.example.com"),
+			IP:     hetzner.F("1.2.3.4"),
 		},
 	)
 	if err != nil {
@@ -105,7 +105,7 @@ func TestPrimaryIpActionChangeDnsPtr(t *testing.T) {
 	}
 }
 
-func TestPrimaryIpActionChangeProtectionWithOptionalParams(t *testing.T) {
+func TestPrimaryIPActionChangeProtectionWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -113,10 +113,10 @@ func TestPrimaryIpActionChangeProtectionWithOptionalParams(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.PrimaryIps.Actions.ChangeProtection(
+	_, err := client.PrimaryIPs.Actions.ChangeProtection(
 		context.TODO(),
 		int64(0),
-		hetzner.PrimaryIpActionChangeProtectionParams{
+		hetzner.PrimaryIPActionChangeProtectionParams{
 			Delete: hetzner.F(true),
 		},
 	)
@@ -129,7 +129,7 @@ func TestPrimaryIpActionChangeProtectionWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestPrimaryIpActionUnassign(t *testing.T) {
+func TestPrimaryIPActionUnassign(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -137,7 +137,7 @@ func TestPrimaryIpActionUnassign(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.PrimaryIps.Actions.Unassign(context.TODO(), int64(0))
+	_, err := client.PrimaryIPs.Actions.Unassign(context.TODO(), int64(0))
 	if err != nil {
 		var apierr *hetzner.Error
 		if errors.As(err, &apierr) {

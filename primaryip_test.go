@@ -12,7 +12,7 @@ import (
 	"github.com/hetzner/hetzner-go/option"
 )
 
-func TestPrimaryIpNewWithOptionalParams(t *testing.T) {
+func TestPrimaryIPNewWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -20,10 +20,10 @@ func TestPrimaryIpNewWithOptionalParams(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.PrimaryIps.New(context.TODO(), hetzner.PrimaryIpNewParams{
-		AssigneeType: hetzner.F(hetzner.PrimaryIpNewParamsAssigneeTypeServer),
+	_, err := client.PrimaryIPs.New(context.TODO(), hetzner.PrimaryIPNewParams{
+		AssigneeType: hetzner.F(hetzner.PrimaryIPNewParamsAssigneeTypeServer),
 		Name:         hetzner.F("my-ip"),
-		Type:         hetzner.F(hetzner.PrimaryIpNewParamsTypeIpv4),
+		Type:         hetzner.F(hetzner.PrimaryIPNewParamsTypeIpv4),
 		AssigneeID:   hetzner.F(int64(17)),
 		AutoDelete:   hetzner.F(false),
 		Datacenter:   hetzner.F("fsn1-dc8"),
@@ -40,7 +40,7 @@ func TestPrimaryIpNewWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestPrimaryIpGet(t *testing.T) {
+func TestPrimaryIPGet(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -48,7 +48,7 @@ func TestPrimaryIpGet(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.PrimaryIps.Get(context.TODO(), int64(0))
+	_, err := client.PrimaryIPs.Get(context.TODO(), int64(0))
 	if err != nil {
 		var apierr *hetzner.Error
 		if errors.As(err, &apierr) {
@@ -58,7 +58,7 @@ func TestPrimaryIpGet(t *testing.T) {
 	}
 }
 
-func TestPrimaryIpUpdateWithOptionalParams(t *testing.T) {
+func TestPrimaryIPUpdateWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -66,10 +66,10 @@ func TestPrimaryIpUpdateWithOptionalParams(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.PrimaryIps.Update(
+	_, err := client.PrimaryIPs.Update(
 		context.TODO(),
 		int64(0),
-		hetzner.PrimaryIpUpdateParams{
+		hetzner.PrimaryIPUpdateParams{
 			AutoDelete: hetzner.F(true),
 			Labels: hetzner.F(map[string]string{
 				"foo": "string",
@@ -86,7 +86,7 @@ func TestPrimaryIpUpdateWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestPrimaryIpListWithOptionalParams(t *testing.T) {
+func TestPrimaryIPListWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -94,13 +94,13 @@ func TestPrimaryIpListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.PrimaryIps.List(context.TODO(), hetzner.PrimaryIpListParams{
-		Ip:            hetzner.F("string"),
+	_, err := client.PrimaryIPs.List(context.TODO(), hetzner.PrimaryIPListParams{
+		IP:            hetzner.F("string"),
 		LabelSelector: hetzner.F("string"),
 		Name:          hetzner.F("string"),
 		Page:          hetzner.F(int64(1)),
 		PerPage:       hetzner.F(int64(1)),
-		Sort:          hetzner.F(hetzner.PrimaryIpListParamsSortID),
+		Sort:          hetzner.F(hetzner.PrimaryIPListParamsSortID),
 	})
 	if err != nil {
 		var apierr *hetzner.Error
@@ -111,7 +111,7 @@ func TestPrimaryIpListWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestPrimaryIpDelete(t *testing.T) {
+func TestPrimaryIPDelete(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -119,7 +119,7 @@ func TestPrimaryIpDelete(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	err := client.PrimaryIps.Delete(context.TODO(), int64(0))
+	err := client.PrimaryIPs.Delete(context.TODO(), int64(0))
 	if err != nil {
 		var apierr *hetzner.Error
 		if errors.As(err, &apierr) {

@@ -128,7 +128,7 @@ type NetworkNewResponseNetwork struct {
 	// We are aware of the issue and are working on a solution.
 	ExposeRoutesToVswitch bool `json:"expose_routes_to_vswitch,required"`
 	// IPv4 prefix of the whole Network
-	IpRange string `json:"ip_range,required"`
+	IPRange string `json:"ip_range,required"`
 	// User-defined labels (key-value pairs)
 	Labels map[string]string `json:"labels,required"`
 	// Name of the Network
@@ -152,7 +152,7 @@ type networkNewResponseNetworkJSON struct {
 	ID                    apijson.Field
 	Created               apijson.Field
 	ExposeRoutesToVswitch apijson.Field
-	IpRange               apijson.Field
+	IPRange               apijson.Field
 	Labels                apijson.Field
 	Name                  apijson.Field
 	Protection            apijson.Field
@@ -231,7 +231,7 @@ type NetworkNewResponseNetworkSubnet struct {
 	// network object and must not overlap with any other subnets or with any
 	// destinations in routes. Minimum Network size is /30. We suggest that you pick a
 	// bigger Network with a /24 netmask.
-	IpRange string `json:"ip_range"`
+	IPRange string `json:"ip_range"`
 	// ID of the robot vSwitch if the subnet is of type vswitch.
 	VswitchID int64 `json:"vswitch_id,nullable"`
 	JSON      networkNewResponseNetworkSubnetJSON
@@ -243,7 +243,7 @@ type networkNewResponseNetworkSubnetJSON struct {
 	Gateway     apijson.Field
 	NetworkZone apijson.Field
 	Type        apijson.Field
-	IpRange     apijson.Field
+	IPRange     apijson.Field
 	VswitchID   apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -292,7 +292,7 @@ type NetworkGetResponseNetwork struct {
 	// We are aware of the issue and are working on a solution.
 	ExposeRoutesToVswitch bool `json:"expose_routes_to_vswitch,required"`
 	// IPv4 prefix of the whole Network
-	IpRange string `json:"ip_range,required"`
+	IPRange string `json:"ip_range,required"`
 	// User-defined labels (key-value pairs)
 	Labels map[string]string `json:"labels,required"`
 	// Name of the Network
@@ -316,7 +316,7 @@ type networkGetResponseNetworkJSON struct {
 	ID                    apijson.Field
 	Created               apijson.Field
 	ExposeRoutesToVswitch apijson.Field
-	IpRange               apijson.Field
+	IPRange               apijson.Field
 	Labels                apijson.Field
 	Name                  apijson.Field
 	Protection            apijson.Field
@@ -395,7 +395,7 @@ type NetworkGetResponseNetworkSubnet struct {
 	// network object and must not overlap with any other subnets or with any
 	// destinations in routes. Minimum Network size is /30. We suggest that you pick a
 	// bigger Network with a /24 netmask.
-	IpRange string `json:"ip_range"`
+	IPRange string `json:"ip_range"`
 	// ID of the robot vSwitch if the subnet is of type vswitch.
 	VswitchID int64 `json:"vswitch_id,nullable"`
 	JSON      networkGetResponseNetworkSubnetJSON
@@ -407,7 +407,7 @@ type networkGetResponseNetworkSubnetJSON struct {
 	Gateway     apijson.Field
 	NetworkZone apijson.Field
 	Type        apijson.Field
-	IpRange     apijson.Field
+	IPRange     apijson.Field
 	VswitchID   apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -456,7 +456,7 @@ type NetworkUpdateResponseNetwork struct {
 	// We are aware of the issue and are working on a solution.
 	ExposeRoutesToVswitch bool `json:"expose_routes_to_vswitch,required"`
 	// IPv4 prefix of the whole Network
-	IpRange string `json:"ip_range,required"`
+	IPRange string `json:"ip_range,required"`
 	// User-defined labels (key-value pairs)
 	Labels map[string]string `json:"labels,required"`
 	// Name of the Network
@@ -480,7 +480,7 @@ type networkUpdateResponseNetworkJSON struct {
 	ID                    apijson.Field
 	Created               apijson.Field
 	ExposeRoutesToVswitch apijson.Field
-	IpRange               apijson.Field
+	IPRange               apijson.Field
 	Labels                apijson.Field
 	Name                  apijson.Field
 	Protection            apijson.Field
@@ -559,7 +559,7 @@ type NetworkUpdateResponseNetworkSubnet struct {
 	// network object and must not overlap with any other subnets or with any
 	// destinations in routes. Minimum Network size is /30. We suggest that you pick a
 	// bigger Network with a /24 netmask.
-	IpRange string `json:"ip_range"`
+	IPRange string `json:"ip_range"`
 	// ID of the robot vSwitch if the subnet is of type vswitch.
 	VswitchID int64 `json:"vswitch_id,nullable"`
 	JSON      networkUpdateResponseNetworkSubnetJSON
@@ -571,7 +571,7 @@ type networkUpdateResponseNetworkSubnetJSON struct {
 	Gateway     apijson.Field
 	NetworkZone apijson.Field
 	Type        apijson.Field
-	IpRange     apijson.Field
+	IPRange     apijson.Field
 	VswitchID   apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -623,7 +623,7 @@ type NetworkListResponseNetwork struct {
 	// We are aware of the issue and are working on a solution.
 	ExposeRoutesToVswitch bool `json:"expose_routes_to_vswitch,required"`
 	// IPv4 prefix of the whole Network
-	IpRange string `json:"ip_range,required"`
+	IPRange string `json:"ip_range,required"`
 	// User-defined labels (key-value pairs)
 	Labels map[string]string `json:"labels,required"`
 	// Name of the Network
@@ -647,7 +647,7 @@ type networkListResponseNetworkJSON struct {
 	ID                    apijson.Field
 	Created               apijson.Field
 	ExposeRoutesToVswitch apijson.Field
-	IpRange               apijson.Field
+	IPRange               apijson.Field
 	Labels                apijson.Field
 	Name                  apijson.Field
 	Protection            apijson.Field
@@ -726,7 +726,7 @@ type NetworkListResponseNetworksSubnet struct {
 	// network object and must not overlap with any other subnets or with any
 	// destinations in routes. Minimum Network size is /30. We suggest that you pick a
 	// bigger Network with a /24 netmask.
-	IpRange string `json:"ip_range"`
+	IPRange string `json:"ip_range"`
 	// ID of the robot vSwitch if the subnet is of type vswitch.
 	VswitchID int64 `json:"vswitch_id,nullable"`
 	JSON      networkListResponseNetworksSubnetJSON
@@ -738,7 +738,7 @@ type networkListResponseNetworksSubnetJSON struct {
 	Gateway     apijson.Field
 	NetworkZone apijson.Field
 	Type        apijson.Field
-	IpRange     apijson.Field
+	IPRange     apijson.Field
 	VswitchID   apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
@@ -761,7 +761,7 @@ type NetworkNewParams struct {
 	// IP range of the whole network which must span all included subnets. Must be one
 	// of the private IPv4 ranges of RFC1918. Minimum network size is /24. We highly
 	// recommend that you pick a larger network with a /16 netmask.
-	IpRange param.Field[string] `json:"ip_range,required"`
+	IPRange param.Field[string] `json:"ip_range,required"`
 	// Name of the network
 	Name param.Field[string] `json:"name,required"`
 	// Indicates if the routes from this network should be exposed to the vSwitch
@@ -823,7 +823,7 @@ type NetworkNewParamsSubnet struct {
 	// any other subnets or with any destinations in routes. If the Subnet is of type
 	// vSwitch, it also can not overlap with any gateway in routes. Minimum Network
 	// size is /30. We suggest that you pick a bigger Network with a /24 netmask.
-	IpRange param.Field[string] `json:"ip_range"`
+	IPRange param.Field[string] `json:"ip_range"`
 	// ID of the robot vSwitch. Must be supplied if the subnet is of type vswitch.
 	VswitchID param.Field[int64] `json:"vswitch_id"`
 }

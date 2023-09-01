@@ -12,7 +12,7 @@ import (
 	"github.com/hetzner/hetzner-go/option"
 )
 
-func TestIsoGet(t *testing.T) {
+func TestISOGet(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -20,7 +20,7 @@ func TestIsoGet(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.Isos.Get(context.TODO(), int64(0))
+	_, err := client.ISOs.Get(context.TODO(), int64(0))
 	if err != nil {
 		var apierr *hetzner.Error
 		if errors.As(err, &apierr) {
@@ -30,7 +30,7 @@ func TestIsoGet(t *testing.T) {
 	}
 }
 
-func TestIsoListWithOptionalParams(t *testing.T) {
+func TestISOListWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -38,7 +38,7 @@ func TestIsoListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.Isos.List(context.TODO(), hetzner.IsoListParams{
+	_, err := client.ISOs.List(context.TODO(), hetzner.ISOListParams{
 		Architecture:                hetzner.F("string"),
 		IncludeArchitectureWildcard: hetzner.F(true),
 		Name:                        hetzner.F("string"),

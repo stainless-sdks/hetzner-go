@@ -261,7 +261,7 @@ type Rule struct {
 	// List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow
 	// all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100
 	// CIDRs at most.
-	DestinationIps []string `json:"destination_ips"`
+	DestinationIPs []string `json:"destination_ips"`
 	// Port or port range to which traffic will be allowed, only applicable for
 	// protocols TCP and UDP. A port range can be specified by separating two ports
 	// with a dash, e.g `1024-5000`.
@@ -269,7 +269,7 @@ type Rule struct {
 	// List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow
 	// all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100
 	// CIDRs at most.
-	SourceIps []string `json:"source_ips"`
+	SourceIPs []string `json:"source_ips"`
 	JSON      ruleJSON
 }
 
@@ -278,9 +278,9 @@ type ruleJSON struct {
 	Direction      apijson.Field
 	Protocol       apijson.Field
 	Description    apijson.Field
-	DestinationIps apijson.Field
+	DestinationIPs apijson.Field
 	Port           apijson.Field
-	SourceIps      apijson.Field
+	SourceIPs      apijson.Field
 	raw            string
 	ExtraFields    map[string]apijson.Field
 }
@@ -321,7 +321,7 @@ type RuleParam struct {
 	// List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow
 	// all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100
 	// CIDRs at most.
-	DestinationIps param.Field[[]string] `json:"destination_ips"`
+	DestinationIPs param.Field[[]string] `json:"destination_ips"`
 	// Port or port range to which traffic will be allowed, only applicable for
 	// protocols TCP and UDP. A port range can be specified by separating two ports
 	// with a dash, e.g `1024-5000`.
@@ -329,7 +329,7 @@ type RuleParam struct {
 	// List of permitted IPv4/IPv6 addresses in CIDR notation. Use `0.0.0.0/0` to allow
 	// all IPv4 addresses and `::/0` to allow all IPv6 addresses. You can specify 100
 	// CIDRs at most.
-	SourceIps param.Field[[]string] `json:"source_ips"`
+	SourceIPs param.Field[[]string] `json:"source_ips"`
 }
 
 func (r RuleParam) MarshalJSON() (data []byte, err error) {

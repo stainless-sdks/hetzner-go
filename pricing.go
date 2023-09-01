@@ -39,24 +39,24 @@ func (r *PricingService) Get(ctx context.Context, opts ...option.RequestOption) 
 	return
 }
 
-type FloatingIpPriceDetails struct {
+type FloatingIPPriceDetails struct {
 	// Floating IP type costs per Location
 	Prices []PricePerTimeMonthly `json:"prices,required"`
 	// The type of the IP
-	Type FloatingIpPriceDetailsType `json:"type,required"`
-	JSON floatingIpPriceDetailsJSON
+	Type FloatingIPPriceDetailsType `json:"type,required"`
+	JSON floatingIPPriceDetailsJSON
 }
 
-// floatingIpPriceDetailsJSON contains the JSON metadata for the struct
-// [FloatingIpPriceDetails]
-type floatingIpPriceDetailsJSON struct {
+// floatingIPPriceDetailsJSON contains the JSON metadata for the struct
+// [FloatingIPPriceDetails]
+type floatingIPPriceDetailsJSON struct {
 	Prices      apijson.Field
 	Type        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *FloatingIpPriceDetails) UnmarshalJSON(data []byte) (err error) {
+func (r *FloatingIPPriceDetails) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -115,11 +115,11 @@ func (r *Price) UnmarshalJSON(data []byte) (err error) {
 }
 
 // The type of the IP
-type FloatingIpPriceDetailsType string
+type FloatingIPPriceDetailsType string
 
 const (
-	FloatingIpPriceDetailsTypeIpv4 FloatingIpPriceDetailsType = "ipv4"
-	FloatingIpPriceDetailsTypeIpv6 FloatingIpPriceDetailsType = "ipv6"
+	FloatingIPPriceDetailsTypeIpv4 FloatingIPPriceDetailsType = "ipv4"
+	FloatingIPPriceDetailsTypeIpv6 FloatingIPPriceDetailsType = "ipv6"
 )
 
 // Response to GET https://api.hetzner.cloud/v1/pricing
@@ -144,15 +144,15 @@ type PricingGetResponsePricing struct {
 	// Currency the returned prices are expressed in, coded according to ISO 4217
 	Currency string `json:"currency,required"`
 	// The cost of one Floating IP per month
-	FloatingIp PricingGetResponsePricingFloatingIp `json:"floating_ip,required"`
+	FloatingIP PricingGetResponsePricingFloatingIP `json:"floating_ip,required"`
 	// Costs of Floating IPs types per Location and type
-	FloatingIps []FloatingIpPriceDetails `json:"floating_ips,required"`
+	FloatingIPs []FloatingIPPriceDetails `json:"floating_ips,required"`
 	// The cost of Image per GB/month
 	Image PricingGetResponsePricingImage `json:"image,required"`
 	// Costs of Load Balancer types per Location and type
 	LoadBalancerTypes []PricingGetResponsePricingLoadBalancerType `json:"load_balancer_types,required"`
 	// Costs of Primary IPs types per Location
-	PrimaryIps []PricingGetResponsePricingPrimaryIp `json:"primary_ips,required"`
+	PrimaryIPs []PricingGetResponsePricingPrimaryIP `json:"primary_ips,required"`
 	// Will increase base Server costs by specific percentage
 	ServerBackup PricingGetResponsePricingServerBackup `json:"server_backup,required"`
 	// Costs of Server types per Location and type
@@ -170,11 +170,11 @@ type PricingGetResponsePricing struct {
 // [PricingGetResponsePricing]
 type pricingGetResponsePricingJSON struct {
 	Currency          apijson.Field
-	FloatingIp        apijson.Field
-	FloatingIps       apijson.Field
+	FloatingIP        apijson.Field
+	FloatingIPs       apijson.Field
 	Image             apijson.Field
 	LoadBalancerTypes apijson.Field
-	PrimaryIps        apijson.Field
+	PrimaryIPs        apijson.Field
 	ServerBackup      apijson.Field
 	ServerTypes       apijson.Field
 	Traffic           apijson.Field
@@ -189,7 +189,7 @@ func (r *PricingGetResponsePricing) UnmarshalJSON(data []byte) (err error) {
 }
 
 // The cost of one Floating IP per month
-type PricingGetResponsePricingFloatingIp struct {
+type PricingGetResponsePricingFloatingIP struct {
 	// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
 	// this Location | Monthly costs for a Floating IP type in this Location | Hourly
 	// costs for a Load Balancer type in this network zone | Monthly costs for a Load
@@ -198,18 +198,18 @@ type PricingGetResponsePricingFloatingIp struct {
 	// for a Server type in this Location | Monthly costs for a Server type in this
 	// Location
 	PriceMonthly Price `json:"price_monthly,required"`
-	JSON         pricingGetResponsePricingFloatingIpJSON
+	JSON         pricingGetResponsePricingFloatingIPJSON
 }
 
-// pricingGetResponsePricingFloatingIpJSON contains the JSON metadata for the
-// struct [PricingGetResponsePricingFloatingIp]
-type pricingGetResponsePricingFloatingIpJSON struct {
+// pricingGetResponsePricingFloatingIPJSON contains the JSON metadata for the
+// struct [PricingGetResponsePricingFloatingIP]
+type pricingGetResponsePricingFloatingIPJSON struct {
 	PriceMonthly apijson.Field
 	raw          string
 	ExtraFields  map[string]apijson.Field
 }
 
-func (r *PricingGetResponsePricingFloatingIp) UnmarshalJSON(data []byte) (err error) {
+func (r *PricingGetResponsePricingFloatingIP) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -298,28 +298,28 @@ func (r *PricingGetResponsePricingLoadBalancerTypesPrice) UnmarshalJSON(data []b
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type PricingGetResponsePricingPrimaryIp struct {
+type PricingGetResponsePricingPrimaryIP struct {
 	// Primary IP type costs per Location
-	Prices []PricingGetResponsePricingPrimaryIpsPrice `json:"prices,required"`
+	Prices []PricingGetResponsePricingPrimaryIPsPrice `json:"prices,required"`
 	// The type of the IP
-	Type PricingGetResponsePricingPrimaryIpsType `json:"type,required"`
-	JSON pricingGetResponsePricingPrimaryIpJSON
+	Type PricingGetResponsePricingPrimaryIPsType `json:"type,required"`
+	JSON pricingGetResponsePricingPrimaryIPJSON
 }
 
-// pricingGetResponsePricingPrimaryIpJSON contains the JSON metadata for the struct
-// [PricingGetResponsePricingPrimaryIp]
-type pricingGetResponsePricingPrimaryIpJSON struct {
+// pricingGetResponsePricingPrimaryIPJSON contains the JSON metadata for the struct
+// [PricingGetResponsePricingPrimaryIP]
+type pricingGetResponsePricingPrimaryIPJSON struct {
 	Prices      apijson.Field
 	Type        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PricingGetResponsePricingPrimaryIp) UnmarshalJSON(data []byte) (err error) {
+func (r *PricingGetResponsePricingPrimaryIP) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type PricingGetResponsePricingPrimaryIpsPrice struct {
+type PricingGetResponsePricingPrimaryIPsPrice struct {
 	// Name of the Location the price is for
 	Location string `json:"location,required"`
 	// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
@@ -338,12 +338,12 @@ type PricingGetResponsePricingPrimaryIpsPrice struct {
 	// for a Server type in this Location | Monthly costs for a Server type in this
 	// Location
 	PriceMonthly Price `json:"price_monthly,required"`
-	JSON         pricingGetResponsePricingPrimaryIpsPriceJSON
+	JSON         pricingGetResponsePricingPrimaryIPsPriceJSON
 }
 
-// pricingGetResponsePricingPrimaryIpsPriceJSON contains the JSON metadata for the
-// struct [PricingGetResponsePricingPrimaryIpsPrice]
-type pricingGetResponsePricingPrimaryIpsPriceJSON struct {
+// pricingGetResponsePricingPrimaryIPsPriceJSON contains the JSON metadata for the
+// struct [PricingGetResponsePricingPrimaryIPsPrice]
+type pricingGetResponsePricingPrimaryIPsPriceJSON struct {
 	Location     apijson.Field
 	PriceHourly  apijson.Field
 	PriceMonthly apijson.Field
@@ -351,16 +351,16 @@ type pricingGetResponsePricingPrimaryIpsPriceJSON struct {
 	ExtraFields  map[string]apijson.Field
 }
 
-func (r *PricingGetResponsePricingPrimaryIpsPrice) UnmarshalJSON(data []byte) (err error) {
+func (r *PricingGetResponsePricingPrimaryIPsPrice) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // The type of the IP
-type PricingGetResponsePricingPrimaryIpsType string
+type PricingGetResponsePricingPrimaryIPsType string
 
 const (
-	PricingGetResponsePricingPrimaryIpsTypeIpv4 PricingGetResponsePricingPrimaryIpsType = "ipv4"
-	PricingGetResponsePricingPrimaryIpsTypeIpv6 PricingGetResponsePricingPrimaryIpsType = "ipv6"
+	PricingGetResponsePricingPrimaryIPsTypeIpv4 PricingGetResponsePricingPrimaryIPsType = "ipv4"
+	PricingGetResponsePricingPrimaryIPsTypeIpv6 PricingGetResponsePricingPrimaryIPsType = "ipv6"
 )
 
 // Will increase base Server costs by specific percentage

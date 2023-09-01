@@ -52,25 +52,25 @@ func TestFirewallNewWithOptionalParams(t *testing.T) {
 		}),
 		Rules: hetzner.F([]hetzner.RuleParam{{
 			Description:    hetzner.F("string"),
-			DestinationIps: hetzner.F([]string{"string", "string", "string"}),
+			DestinationIPs: hetzner.F([]string{"string", "string", "string"}),
 			Direction:      hetzner.F(hetzner.RuleDirectionIn),
 			Port:           hetzner.F("80"),
 			Protocol:       hetzner.F(hetzner.RuleProtocolEsp),
-			SourceIps:      hetzner.F([]string{"string", "string", "string"}),
+			SourceIPs:      hetzner.F([]string{"string", "string", "string"}),
 		}, {
 			Description:    hetzner.F("string"),
-			DestinationIps: hetzner.F([]string{"string", "string", "string"}),
+			DestinationIPs: hetzner.F([]string{"string", "string", "string"}),
 			Direction:      hetzner.F(hetzner.RuleDirectionIn),
 			Port:           hetzner.F("80"),
 			Protocol:       hetzner.F(hetzner.RuleProtocolEsp),
-			SourceIps:      hetzner.F([]string{"string", "string", "string"}),
+			SourceIPs:      hetzner.F([]string{"string", "string", "string"}),
 		}, {
 			Description:    hetzner.F("string"),
-			DestinationIps: hetzner.F([]string{"string", "string", "string"}),
+			DestinationIPs: hetzner.F([]string{"string", "string", "string"}),
 			Direction:      hetzner.F(hetzner.RuleDirectionIn),
 			Port:           hetzner.F("80"),
 			Protocol:       hetzner.F(hetzner.RuleProtocolEsp),
-			SourceIps:      hetzner.F([]string{"string", "string", "string"}),
+			SourceIPs:      hetzner.F([]string{"string", "string", "string"}),
 		}}),
 	})
 	if err != nil {

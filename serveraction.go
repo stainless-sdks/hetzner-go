@@ -73,7 +73,7 @@ func (r *ServerActionService) AddToPlacementGroup(ctx context.Context, id int64,
 //
 // Servers with attached ISOs have a modified boot order: They will try to boot
 // from the ISO first before falling back to hard disk.
-func (r *ServerActionService) AttachIso(ctx context.Context, id int64, body ServerActionAttachIsoParams, opts ...option.RequestOption) (res *ServerActionAttachIsoResponse, err error) {
+func (r *ServerActionService) AttachISO(ctx context.Context, id int64, body ServerActionAttachISOParams, opts ...option.RequestOption) (res *ServerActionAttachISOResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("servers/%v/actions/attach_iso", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -110,7 +110,7 @@ func (r *ServerActionService) AttachToNetwork(ctx context.Context, id int64, bod
 // aliases for the specified Network will be replaced with these provided in the
 // request body. So if you want to add an alias IP, you have to provide the
 // existing ones from the Network plus the new alias IP in the request body.
-func (r *ServerActionService) ChangeAliasIps(ctx context.Context, id int64, body ServerActionChangeAliasIpsParams, opts ...option.RequestOption) (res *ServerActionChangeAliasIpsResponse, err error) {
+func (r *ServerActionService) ChangeAliasIPs(ctx context.Context, id int64, body ServerActionChangeAliasIPsParams, opts ...option.RequestOption) (res *ServerActionChangeAliasIPsResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("servers/%v/actions/change_alias_ips", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -121,7 +121,7 @@ func (r *ServerActionService) ChangeAliasIps(ctx context.Context, id int64, body
 // primary IPs (IPv4 and IPv6) of this Server.
 //
 // Floating IPs assigned to the Server are not affected by this.
-func (r *ServerActionService) ChangeDnsPtr(ctx context.Context, id int64, body ServerActionChangeDnsPtrParams, opts ...option.RequestOption) (res *ServerActionChangeDnsPtrResponse, err error) {
+func (r *ServerActionService) ChangeDNSPtr(ctx context.Context, id int64, body ServerActionChangeDNSPtrParams, opts ...option.RequestOption) (res *ServerActionChangeDNSPtrResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("servers/%v/actions/change_dns_ptr", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -191,7 +191,7 @@ func (r *ServerActionService) DetachFromNetwork(ctx context.Context, id int64, b
 
 // Detaches an ISO from a Server. In case no ISO Image is attached to the Server,
 // the status of the returned Action is immediately set to `success`
-func (r *ServerActionService) DetachIso(ctx context.Context, id int64, opts ...option.RequestOption) (res *ServerActionDetachIsoResponse, err error) {
+func (r *ServerActionService) DetachISO(ctx context.Context, id int64, opts ...option.RequestOption) (res *ServerActionDetachISOResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("servers/%v/actions/detach_iso", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, nil, &res, opts...)
@@ -420,21 +420,21 @@ func (r *ServerActionAddToPlacementGroupResponse) UnmarshalJSON(data []byte) (er
 }
 
 // Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/attach_iso
-type ServerActionAttachIsoResponse struct {
+type ServerActionAttachISOResponse struct {
 	// Actions show the results and progress of asynchronous requests to the API.
 	Action shared.Action `json:"action,required"`
-	JSON   serverActionAttachIsoResponseJSON
+	JSON   serverActionAttachISOResponseJSON
 }
 
-// serverActionAttachIsoResponseJSON contains the JSON metadata for the struct
-// [ServerActionAttachIsoResponse]
-type serverActionAttachIsoResponseJSON struct {
+// serverActionAttachISOResponseJSON contains the JSON metadata for the struct
+// [ServerActionAttachISOResponse]
+type serverActionAttachISOResponseJSON struct {
 	Action      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *ServerActionAttachIsoResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *ServerActionAttachISOResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -460,41 +460,41 @@ func (r *ServerActionAttachToNetworkResponse) UnmarshalJSON(data []byte) (err er
 
 // Response to POST
 // https://api.hetzner.cloud/v1/servers/{id}/actions/change_alias_ips
-type ServerActionChangeAliasIpsResponse struct {
+type ServerActionChangeAliasIPsResponse struct {
 	// Actions show the results and progress of asynchronous requests to the API.
 	Action shared.Action `json:"action,required"`
-	JSON   serverActionChangeAliasIpsResponseJSON
+	JSON   serverActionChangeAliasIPsResponseJSON
 }
 
-// serverActionChangeAliasIpsResponseJSON contains the JSON metadata for the struct
-// [ServerActionChangeAliasIpsResponse]
-type serverActionChangeAliasIpsResponseJSON struct {
+// serverActionChangeAliasIPsResponseJSON contains the JSON metadata for the struct
+// [ServerActionChangeAliasIPsResponse]
+type serverActionChangeAliasIPsResponseJSON struct {
 	Action      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *ServerActionChangeAliasIpsResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *ServerActionChangeAliasIPsResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Response to POST
 // https://api.hetzner.cloud/v1/servers/{id}/actions/change_dns_ptr
-type ServerActionChangeDnsPtrResponse struct {
+type ServerActionChangeDNSPtrResponse struct {
 	// Actions show the results and progress of asynchronous requests to the API.
 	Action shared.Action `json:"action,required"`
-	JSON   serverActionChangeDnsPtrResponseJSON
+	JSON   serverActionChangeDNSPtrResponseJSON
 }
 
-// serverActionChangeDnsPtrResponseJSON contains the JSON metadata for the struct
-// [ServerActionChangeDnsPtrResponse]
-type serverActionChangeDnsPtrResponseJSON struct {
+// serverActionChangeDNSPtrResponseJSON contains the JSON metadata for the struct
+// [ServerActionChangeDNSPtrResponse]
+type serverActionChangeDNSPtrResponseJSON struct {
 	Action      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *ServerActionChangeDnsPtrResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *ServerActionChangeDNSPtrResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -734,21 +734,21 @@ func (r *ServerActionDetachFromNetworkResponse) UnmarshalJSON(data []byte) (err 
 }
 
 // Response to POST https://api.hetzner.cloud/v1/servers/{id}/actions/detach_iso
-type ServerActionDetachIsoResponse struct {
+type ServerActionDetachISOResponse struct {
 	// Actions show the results and progress of asynchronous requests to the API.
 	Action shared.Action `json:"action,required"`
-	JSON   serverActionDetachIsoResponseJSON
+	JSON   serverActionDetachISOResponseJSON
 }
 
-// serverActionDetachIsoResponseJSON contains the JSON metadata for the struct
-// [ServerActionDetachIsoResponse]
-type serverActionDetachIsoResponseJSON struct {
+// serverActionDetachISOResponseJSON contains the JSON metadata for the struct
+// [ServerActionDetachISOResponse]
+type serverActionDetachISOResponseJSON struct {
 	Action      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *ServerActionDetachIsoResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *ServerActionDetachISOResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -1051,12 +1051,12 @@ func (r ServerActionAddToPlacementGroupParams) MarshalJSON() (data []byte, err e
 	return apijson.MarshalRoot(r)
 }
 
-type ServerActionAttachIsoParams struct {
+type ServerActionAttachISOParams struct {
 	// ID or name of ISO to attach to the Server as listed in GET `/isos`
-	Iso param.Field[string] `json:"iso,required"`
+	ISO param.Field[string] `json:"iso,required"`
 }
 
-func (r ServerActionAttachIsoParams) MarshalJSON() (data []byte, err error) {
+func (r ServerActionAttachISOParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
@@ -1064,35 +1064,35 @@ type ServerActionAttachToNetworkParams struct {
 	// ID of an existing network to attach the Server to
 	Network param.Field[int64] `json:"network,required"`
 	// Additional IPs to be assigned to this Server
-	AliasIps param.Field[[]string] `json:"alias_ips"`
+	AliasIPs param.Field[[]string] `json:"alias_ips"`
 	// IP to request to be assigned to this Server; if you do not provide this then you
 	// will be auto assigned an IP address
-	Ip param.Field[string] `json:"ip"`
+	IP param.Field[string] `json:"ip"`
 }
 
 func (r ServerActionAttachToNetworkParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type ServerActionChangeAliasIpsParams struct {
+type ServerActionChangeAliasIPsParams struct {
 	// New alias IPs to set for this Server
-	AliasIps param.Field[[]string] `json:"alias_ips,required"`
+	AliasIPs param.Field[[]string] `json:"alias_ips,required"`
 	// ID of an existing Network already attached to the Server
 	Network param.Field[int64] `json:"network,required"`
 }
 
-func (r ServerActionChangeAliasIpsParams) MarshalJSON() (data []byte, err error) {
+func (r ServerActionChangeAliasIPsParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type ServerActionChangeDnsPtrParams struct {
+type ServerActionChangeDNSPtrParams struct {
 	// Hostname to set as a reverse DNS PTR entry, reset to original value if `null`
-	DnsPtr param.Field[string] `json:"dns_ptr,required"`
+	DNSPtr param.Field[string] `json:"dns_ptr,required"`
 	// Primary IP address for which the reverse DNS entry should be set
-	Ip param.Field[string] `json:"ip,required"`
+	IP param.Field[string] `json:"ip,required"`
 }
 
-func (r ServerActionChangeDnsPtrParams) MarshalJSON() (data []byte, err error) {
+func (r ServerActionChangeDNSPtrParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 

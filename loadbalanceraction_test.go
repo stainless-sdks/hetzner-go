@@ -122,9 +122,9 @@ func TestLoadBalancerActionAssTargetWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		int64(0),
 		hetzner.LoadBalancerActionAssTargetParams{
-			Type: hetzner.F(hetzner.LoadBalancerActionAssTargetParamsTypeIp),
-			Ip: hetzner.F(hetzner.LoadBalancerTargetIpParam{
-				Ip: hetzner.F("203.0.113.1"),
+			Type: hetzner.F(hetzner.LoadBalancerActionAssTargetParamsTypeIP),
+			IP: hetzner.F(hetzner.LoadBalancerTargetIPParam{
+				IP: hetzner.F("203.0.113.1"),
 			}),
 			LabelSelector: hetzner.F(hetzner.LoadBalancerActionAssTargetParamsLabelSelector{
 				Selector: hetzner.F("env=prod"),
@@ -132,7 +132,7 @@ func TestLoadBalancerActionAssTargetWithOptionalParams(t *testing.T) {
 			Server: hetzner.F(hetzner.LoadBalancerActionAssTargetParamsServer{
 				ID: hetzner.F(int64(80)),
 			}),
-			UsePrivateIp: hetzner.F(true),
+			UsePrivateIP: hetzner.F(true),
 		},
 	)
 	if err != nil {
@@ -157,7 +157,7 @@ func TestLoadBalancerActionAttachToNetworkWithOptionalParams(t *testing.T) {
 		int64(0),
 		hetzner.LoadBalancerActionAttachToNetworkParams{
 			Network: hetzner.F(int64(4711)),
-			Ip:      hetzner.F("10.0.1.1"),
+			IP:      hetzner.F("10.0.1.1"),
 		},
 	)
 	if err != nil {
@@ -193,7 +193,7 @@ func TestLoadBalancerActionChangeAlgorithm(t *testing.T) {
 	}
 }
 
-func TestLoadBalancerActionChangeDnsPtr(t *testing.T) {
+func TestLoadBalancerActionChangeDNSPtr(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -201,12 +201,12 @@ func TestLoadBalancerActionChangeDnsPtr(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.LoadBalancers.Actions.ChangeDnsPtr(
+	_, err := client.LoadBalancers.Actions.ChangeDNSPtr(
 		context.TODO(),
 		int64(0),
-		hetzner.LoadBalancerActionChangeDnsPtrParams{
-			DnsPtr: hetzner.F("lb1.example.com"),
-			Ip:     hetzner.F("1.2.3.4"),
+		hetzner.LoadBalancerActionChangeDNSPtrParams{
+			DNSPtr: hetzner.F("lb1.example.com"),
+			IP:     hetzner.F("1.2.3.4"),
 		},
 	)
 	if err != nil {
@@ -362,9 +362,9 @@ func TestLoadBalancerActionRemoveTargetWithOptionalParams(t *testing.T) {
 		context.TODO(),
 		int64(0),
 		hetzner.LoadBalancerActionRemoveTargetParams{
-			Type: hetzner.F(hetzner.LoadBalancerActionRemoveTargetParamsTypeIp),
-			Ip: hetzner.F(hetzner.LoadBalancerTargetIpParam{
-				Ip: hetzner.F("203.0.113.1"),
+			Type: hetzner.F(hetzner.LoadBalancerActionRemoveTargetParamsTypeIP),
+			IP: hetzner.F(hetzner.LoadBalancerTargetIPParam{
+				IP: hetzner.F("203.0.113.1"),
 			}),
 			LabelSelector: hetzner.F(hetzner.LoadBalancerActionRemoveTargetParamsLabelSelector{
 				Selector: hetzner.F("env=prod"),

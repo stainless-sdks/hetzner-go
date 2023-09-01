@@ -16,22 +16,22 @@ import (
 	"github.com/hetzner/hetzner-go/option"
 )
 
-// PrimaryIpService contains methods and other services that help with interacting
+// PrimaryIPService contains methods and other services that help with interacting
 // with the hetzner API. Note, unlike clients, this service does not read variables
 // from the environment automatically. You should not instantiate this service
-// directly, and instead use the [NewPrimaryIpService] method instead.
-type PrimaryIpService struct {
+// directly, and instead use the [NewPrimaryIPService] method instead.
+type PrimaryIPService struct {
 	Options []option.RequestOption
-	Actions *PrimaryIpActionService
+	Actions *PrimaryIPActionService
 }
 
-// NewPrimaryIpService generates a new service that applies the given options to
+// NewPrimaryIPService generates a new service that applies the given options to
 // each request. These options are applied after the parent client's options (if
 // there is one), and before any request-specific options.
-func NewPrimaryIpService(opts ...option.RequestOption) (r *PrimaryIpService) {
-	r = &PrimaryIpService{}
+func NewPrimaryIPService(opts ...option.RequestOption) (r *PrimaryIPService) {
+	r = &PrimaryIPService{}
 	r.Options = opts
-	r.Actions = NewPrimaryIpActionService(opts...)
+	r.Actions = NewPrimaryIPActionService(opts...)
 	return
 }
 
@@ -51,7 +51,7 @@ func NewPrimaryIpService(opts ...option.RequestOption) (r *PrimaryIpService) {
 // | `server_not_stopped` | The specified server is running, but needs to be powered off |
 // | `server_has_ipv4`    | The server already has an ipv4 address                       |
 // | `server_has_ipv6`    | The server already has an ipv6 address                       |
-func (r *PrimaryIpService) New(ctx context.Context, body PrimaryIpNewParams, opts ...option.RequestOption) (res *PrimaryIpNewResponse, err error) {
+func (r *PrimaryIPService) New(ctx context.Context, body PrimaryIPNewParams, opts ...option.RequestOption) (res *PrimaryIPNewResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "primary_ips"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPost, path, body, &res, opts...)
@@ -59,7 +59,7 @@ func (r *PrimaryIpService) New(ctx context.Context, body PrimaryIpNewParams, opt
 }
 
 // Returns a specific Primary IP object.
-func (r *PrimaryIpService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *PrimaryIpGetResponse, err error) {
+func (r *PrimaryIPService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *PrimaryIPGetResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("primary_ips/%v", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -75,7 +75,7 @@ func (r *PrimaryIpService) Get(ctx context.Context, id int64, opts ...option.Req
 //
 // If the Primary IP object changes during the request, the response will be a
 // “conflict” error.
-func (r *PrimaryIpService) Update(ctx context.Context, id int64, body PrimaryIpUpdateParams, opts ...option.RequestOption) (res *PrimaryIpUpdateResponse, err error) {
+func (r *PrimaryIPService) Update(ctx context.Context, id int64, body PrimaryIPUpdateParams, opts ...option.RequestOption) (res *PrimaryIPUpdateResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("primary_ips/%v", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodPut, path, body, &res, opts...)
@@ -83,7 +83,7 @@ func (r *PrimaryIpService) Update(ctx context.Context, id int64, body PrimaryIpU
 }
 
 // Returns all Primary IP objects.
-func (r *PrimaryIpService) List(ctx context.Context, query PrimaryIpListParams, opts ...option.RequestOption) (res *PrimaryIpListResponse, err error) {
+func (r *PrimaryIPService) List(ctx context.Context, query PrimaryIPListParams, opts ...option.RequestOption) (res *PrimaryIPListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "primary_ips"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
@@ -95,7 +95,7 @@ func (r *PrimaryIpService) List(ctx context.Context, query PrimaryIpListParams, 
 // The Primary IP may be assigned to a Server. In this case it is unassigned
 // automatically. The Server must be powered off (status `off`) in order for this
 // operation to succeed.
-func (r *PrimaryIpService) Delete(ctx context.Context, id int64, opts ...option.RequestOption) (err error) {
+func (r *PrimaryIPService) Delete(ctx context.Context, id int64, opts ...option.RequestOption) (err error) {
 	opts = append(r.Options[:], opts...)
 	opts = append([]option.RequestOption{option.WithHeader("Accept", "")}, opts...)
 	path := fmt.Sprintf("primary_ips/%v", id)
@@ -103,14 +103,14 @@ func (r *PrimaryIpService) Delete(ctx context.Context, id int64, opts ...option.
 	return
 }
 
-type PrimaryIp struct {
+type PrimaryIP struct {
 	// ID of the Resource
 	ID int64 `json:"id,required"`
 	// ID of the resource the Primary IP is assigned to, null if it is not assigned at
 	// all
 	AssigneeID int64 `json:"assignee_id,required,nullable"`
 	// Resource type the Primary IP can be assigned to
-	AssigneeType PrimaryIpAssigneeType `json:"assignee_type,required"`
+	AssigneeType PrimaryIPAssigneeType `json:"assignee_type,required"`
 	// Delete this Primary IP when the resource it is assigned to is deleted
 	AutoDelete bool `json:"auto_delete,required"`
 	// Whether the IP is blocked
@@ -119,24 +119,24 @@ type PrimaryIp struct {
 	Created string `json:"created,required"`
 	// Datacenter this Primary IP is located at | Datacenter this Resource is located
 	// at
-	Datacenter PrimaryIpDatacenter `json:"datacenter,required"`
+	Datacenter PrimaryIPDatacenter `json:"datacenter,required"`
 	// Array of reverse DNS entries
-	DnsPtr []PrimaryIpDnsPtr `json:"dns_ptr,required"`
+	DNSPtr []PrimaryIPDNSPtr `json:"dns_ptr,required"`
 	// IP address
-	Ip string `json:"ip,required"`
+	IP string `json:"ip,required"`
 	// User-defined labels (key-value pairs)
 	Labels map[string]string `json:"labels,required"`
 	// Name of the Resource. Must be unique per Project.
 	Name string `json:"name,required"`
 	// Protection configuration for the Resource
-	Protection PrimaryIpProtection `json:"protection,required"`
+	Protection PrimaryIPProtection `json:"protection,required"`
 	// The type of the IP
-	Type PrimaryIpType `json:"type,required"`
-	JSON primaryIpJSON
+	Type PrimaryIPType `json:"type,required"`
+	JSON primaryIPJSON
 }
 
-// primaryIpJSON contains the JSON metadata for the struct [PrimaryIp]
-type primaryIpJSON struct {
+// primaryIPJSON contains the JSON metadata for the struct [PrimaryIP]
+type primaryIPJSON struct {
 	ID           apijson.Field
 	AssigneeID   apijson.Field
 	AssigneeType apijson.Field
@@ -144,8 +144,8 @@ type primaryIpJSON struct {
 	Blocked      apijson.Field
 	Created      apijson.Field
 	Datacenter   apijson.Field
-	DnsPtr       apijson.Field
-	Ip           apijson.Field
+	DNSPtr       apijson.Field
+	IP           apijson.Field
 	Labels       apijson.Field
 	Name         apijson.Field
 	Protection   apijson.Field
@@ -154,20 +154,20 @@ type primaryIpJSON struct {
 	ExtraFields  map[string]apijson.Field
 }
 
-func (r *PrimaryIp) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIP) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Resource type the Primary IP can be assigned to
-type PrimaryIpAssigneeType string
+type PrimaryIPAssigneeType string
 
 const (
-	PrimaryIpAssigneeTypeServer PrimaryIpAssigneeType = "server"
+	PrimaryIPAssigneeTypeServer PrimaryIPAssigneeType = "server"
 )
 
 // Datacenter this Primary IP is located at | Datacenter this Resource is located
 // at
-type PrimaryIpDatacenter struct {
+type PrimaryIPDatacenter struct {
 	// ID of the Resource
 	ID int64 `json:"id,required"`
 	// Description of the Datacenter
@@ -175,17 +175,17 @@ type PrimaryIpDatacenter struct {
 	// Location the Floating IP was created in. Routing is optimized for this Location.
 	// | Location of the Volume. Volume can only be attached to Servers in the same
 	// Location.
-	Location PrimaryIpDatacenterLocation `json:"location,required"`
+	Location PrimaryIPDatacenterLocation `json:"location,required"`
 	// Unique identifier of the Datacenter
 	Name string `json:"name,required"`
 	// The Server types the Datacenter can handle
-	ServerTypes PrimaryIpDatacenterServerTypes `json:"server_types,required"`
-	JSON        primaryIpDatacenterJSON
+	ServerTypes PrimaryIPDatacenterServerTypes `json:"server_types,required"`
+	JSON        primaryIPDatacenterJSON
 }
 
-// primaryIpDatacenterJSON contains the JSON metadata for the struct
-// [PrimaryIpDatacenter]
-type primaryIpDatacenterJSON struct {
+// primaryIPDatacenterJSON contains the JSON metadata for the struct
+// [PrimaryIPDatacenter]
+type primaryIPDatacenterJSON struct {
 	ID          apijson.Field
 	Description apijson.Field
 	Location    apijson.Field
@@ -195,14 +195,14 @@ type primaryIpDatacenterJSON struct {
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpDatacenter) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPDatacenter) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Location the Floating IP was created in. Routing is optimized for this Location.
 // | Location of the Volume. Volume can only be attached to Servers in the same
 // Location.
-type PrimaryIpDatacenterLocation struct {
+type PrimaryIPDatacenterLocation struct {
 	// ID of the Location
 	ID int64 `json:"id,required"`
 	// City the Location is closest to
@@ -219,12 +219,12 @@ type PrimaryIpDatacenterLocation struct {
 	Name string `json:"name,required"`
 	// Name of network zone this Location resides in
 	NetworkZone string `json:"network_zone,required"`
-	JSON        primaryIpDatacenterLocationJSON
+	JSON        primaryIPDatacenterLocationJSON
 }
 
-// primaryIpDatacenterLocationJSON contains the JSON metadata for the struct
-// [PrimaryIpDatacenterLocation]
-type primaryIpDatacenterLocationJSON struct {
+// primaryIPDatacenterLocationJSON contains the JSON metadata for the struct
+// [PrimaryIPDatacenterLocation]
+type primaryIPDatacenterLocationJSON struct {
 	ID          apijson.Field
 	City        apijson.Field
 	Country     apijson.Field
@@ -237,12 +237,12 @@ type primaryIpDatacenterLocationJSON struct {
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpDatacenterLocation) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPDatacenterLocation) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // The Server types the Datacenter can handle
-type PrimaryIpDatacenterServerTypes struct {
+type PrimaryIPDatacenterServerTypes struct {
 	// IDs of Server types that are supported and for which the Datacenter has enough
 	// resources left
 	Available []int64 `json:"available,required"`
@@ -251,12 +251,12 @@ type PrimaryIpDatacenterServerTypes struct {
 	AvailableForMigration []int64 `json:"available_for_migration,required"`
 	// IDs of Server types that are supported in the Datacenter
 	Supported []int64 `json:"supported,required"`
-	JSON      primaryIpDatacenterServerTypesJSON
+	JSON      primaryIPDatacenterServerTypesJSON
 }
 
-// primaryIpDatacenterServerTypesJSON contains the JSON metadata for the struct
-// [PrimaryIpDatacenterServerTypes]
-type primaryIpDatacenterServerTypesJSON struct {
+// primaryIPDatacenterServerTypesJSON contains the JSON metadata for the struct
+// [PrimaryIPDatacenterServerTypes]
+type primaryIPDatacenterServerTypesJSON struct {
 	Available             apijson.Field
 	AvailableForMigration apijson.Field
 	Supported             apijson.Field
@@ -264,143 +264,143 @@ type primaryIpDatacenterServerTypesJSON struct {
 	ExtraFields           map[string]apijson.Field
 }
 
-func (r *PrimaryIpDatacenterServerTypes) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPDatacenterServerTypes) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type PrimaryIpDnsPtr struct {
+type PrimaryIPDNSPtr struct {
 	// DNS pointer for the specific IP address
-	DnsPtr string `json:"dns_ptr,required"`
+	DNSPtr string `json:"dns_ptr,required"`
 	// Single IPv4 or IPv6 address | Single IPv6 address of this Server for which the
 	// reverse DNS entry has been set up
-	Ip   string `json:"ip,required"`
-	JSON primaryIpDnsPtrJSON
+	IP   string `json:"ip,required"`
+	JSON primaryIPDNSPtrJSON
 }
 
-// primaryIpDnsPtrJSON contains the JSON metadata for the struct [PrimaryIpDnsPtr]
-type primaryIpDnsPtrJSON struct {
-	DnsPtr      apijson.Field
-	Ip          apijson.Field
+// primaryIPDNSPtrJSON contains the JSON metadata for the struct [PrimaryIPDNSPtr]
+type primaryIPDNSPtrJSON struct {
+	DNSPtr      apijson.Field
+	IP          apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpDnsPtr) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPDNSPtr) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Protection configuration for the Resource
-type PrimaryIpProtection struct {
+type PrimaryIPProtection struct {
 	// If true, prevents the Resource from being deleted | If true, prevents the
 	// Network from being deleted
 	Delete bool `json:"delete,required"`
-	JSON   primaryIpProtectionJSON
+	JSON   primaryIPProtectionJSON
 }
 
-// primaryIpProtectionJSON contains the JSON metadata for the struct
-// [PrimaryIpProtection]
-type primaryIpProtectionJSON struct {
+// primaryIPProtectionJSON contains the JSON metadata for the struct
+// [PrimaryIPProtection]
+type primaryIPProtectionJSON struct {
 	Delete      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpProtection) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPProtection) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // The type of the IP
-type PrimaryIpType string
+type PrimaryIPType string
 
 const (
-	PrimaryIpTypeIpv4 PrimaryIpType = "ipv4"
-	PrimaryIpTypeIpv6 PrimaryIpType = "ipv6"
+	PrimaryIPTypeIpv4 PrimaryIPType = "ipv4"
+	PrimaryIPTypeIpv6 PrimaryIPType = "ipv6"
 )
 
 // Response to POST https://api.hetzner.cloud/v1/primary_ips
-type PrimaryIpNewResponse struct {
-	PrimaryIp PrimaryIp `json:"primary_ip,required"`
+type PrimaryIPNewResponse struct {
+	PrimaryIP PrimaryIP `json:"primary_ip,required"`
 	// Actions show the results and progress of asynchronous requests to the API.
 	Action shared.Action `json:"action"`
-	JSON   primaryIpNewResponseJSON
+	JSON   primaryIPNewResponseJSON
 }
 
-// primaryIpNewResponseJSON contains the JSON metadata for the struct
-// [PrimaryIpNewResponse]
-type primaryIpNewResponseJSON struct {
-	PrimaryIp   apijson.Field
+// primaryIPNewResponseJSON contains the JSON metadata for the struct
+// [PrimaryIPNewResponse]
+type primaryIPNewResponseJSON struct {
+	PrimaryIP   apijson.Field
 	Action      apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpNewResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPNewResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Response to GET https://api.hetzner.cloud/v1/primary_ips/{id}
-type PrimaryIpGetResponse struct {
-	PrimaryIp PrimaryIp `json:"primary_ip,required"`
-	JSON      primaryIpGetResponseJSON
+type PrimaryIPGetResponse struct {
+	PrimaryIP PrimaryIP `json:"primary_ip,required"`
+	JSON      primaryIPGetResponseJSON
 }
 
-// primaryIpGetResponseJSON contains the JSON metadata for the struct
-// [PrimaryIpGetResponse]
-type primaryIpGetResponseJSON struct {
-	PrimaryIp   apijson.Field
+// primaryIPGetResponseJSON contains the JSON metadata for the struct
+// [PrimaryIPGetResponse]
+type primaryIPGetResponseJSON struct {
+	PrimaryIP   apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpGetResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPGetResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Response to PUT https://api.hetzner.cloud/v1/primary_ips/{id}
-type PrimaryIpUpdateResponse struct {
-	PrimaryIp PrimaryIp `json:"primary_ip,required"`
-	JSON      primaryIpUpdateResponseJSON
+type PrimaryIPUpdateResponse struct {
+	PrimaryIP PrimaryIP `json:"primary_ip,required"`
+	JSON      primaryIPUpdateResponseJSON
 }
 
-// primaryIpUpdateResponseJSON contains the JSON metadata for the struct
-// [PrimaryIpUpdateResponse]
-type primaryIpUpdateResponseJSON struct {
-	PrimaryIp   apijson.Field
+// primaryIPUpdateResponseJSON contains the JSON metadata for the struct
+// [PrimaryIPUpdateResponse]
+type primaryIPUpdateResponseJSON struct {
+	PrimaryIP   apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpUpdateResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPUpdateResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Response to GET https://api.hetzner.cloud/v1/primary_ips
-type PrimaryIpListResponse struct {
-	PrimaryIps []PrimaryIp `json:"primary_ips,required"`
+type PrimaryIPListResponse struct {
+	PrimaryIPs []PrimaryIP `json:"primary_ips,required"`
 	// Metadata contained in the response
 	Meta shared.ResponseMeta `json:"meta"`
-	JSON primaryIpListResponseJSON
+	JSON primaryIPListResponseJSON
 }
 
-// primaryIpListResponseJSON contains the JSON metadata for the struct
-// [PrimaryIpListResponse]
-type primaryIpListResponseJSON struct {
-	PrimaryIps  apijson.Field
+// primaryIPListResponseJSON contains the JSON metadata for the struct
+// [PrimaryIPListResponse]
+type primaryIPListResponseJSON struct {
+	PrimaryIPs  apijson.Field
 	Meta        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *PrimaryIpListResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *PrimaryIPListResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type PrimaryIpNewParams struct {
+type PrimaryIPNewParams struct {
 	// Resource type the Primary IP can be assigned to
-	AssigneeType param.Field[PrimaryIpNewParamsAssigneeType] `json:"assignee_type,required"`
+	AssigneeType param.Field[PrimaryIPNewParamsAssigneeType] `json:"assignee_type,required"`
 	Name         param.Field[string]                         `json:"name,required"`
 	// The type of the IP
-	Type param.Field[PrimaryIpNewParamsType] `json:"type,required"`
+	Type param.Field[PrimaryIPNewParamsType] `json:"type,required"`
 	// ID of the resource the Primary IP should be assigned to. Omitted if it should
 	// not be assigned.
 	AssigneeID param.Field[int64] `json:"assignee_id"`
@@ -414,26 +414,26 @@ type PrimaryIpNewParams struct {
 	Labels param.Field[map[string]string] `json:"labels"`
 }
 
-func (r PrimaryIpNewParams) MarshalJSON() (data []byte, err error) {
+func (r PrimaryIPNewParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
 // Resource type the Primary IP can be assigned to
-type PrimaryIpNewParamsAssigneeType string
+type PrimaryIPNewParamsAssigneeType string
 
 const (
-	PrimaryIpNewParamsAssigneeTypeServer PrimaryIpNewParamsAssigneeType = "server"
+	PrimaryIPNewParamsAssigneeTypeServer PrimaryIPNewParamsAssigneeType = "server"
 )
 
 // The type of the IP
-type PrimaryIpNewParamsType string
+type PrimaryIPNewParamsType string
 
 const (
-	PrimaryIpNewParamsTypeIpv4 PrimaryIpNewParamsType = "ipv4"
-	PrimaryIpNewParamsTypeIpv6 PrimaryIpNewParamsType = "ipv6"
+	PrimaryIPNewParamsTypeIpv4 PrimaryIPNewParamsType = "ipv4"
+	PrimaryIPNewParamsTypeIpv6 PrimaryIPNewParamsType = "ipv6"
 )
 
-type PrimaryIpUpdateParams struct {
+type PrimaryIPUpdateParams struct {
 	// Delete this Primary IP when the resource it is assigned to is deleted
 	AutoDelete param.Field[bool] `json:"auto_delete"`
 	// User-defined labels (key-value pairs)
@@ -442,14 +442,14 @@ type PrimaryIpUpdateParams struct {
 	Name param.Field[string] `json:"name"`
 }
 
-func (r PrimaryIpUpdateParams) MarshalJSON() (data []byte, err error) {
+func (r PrimaryIPUpdateParams) MarshalJSON() (data []byte, err error) {
 	return apijson.MarshalRoot(r)
 }
 
-type PrimaryIpListParams struct {
+type PrimaryIPListParams struct {
 	// Can be used to filter resources by their ip. The response will only contain the
 	// resources matching the specified ip.
-	Ip param.Field[string] `query:"ip"`
+	IP param.Field[string] `query:"ip"`
 	// Can be used to filter resources by labels. The response will only contain
 	// resources matching the label selector.
 	LabelSelector param.Field[string] `query:"label_selector"`
@@ -463,11 +463,11 @@ type PrimaryIpListParams struct {
 	PerPage param.Field[int64] `query:"per_page"`
 	// Can be used multiple times. Choices id id:asc id:desc created created:asc
 	// created:desc
-	Sort param.Field[PrimaryIpListParamsSort] `query:"sort"`
+	Sort param.Field[PrimaryIPListParamsSort] `query:"sort"`
 }
 
-// URLQuery serializes [PrimaryIpListParams]'s query parameters as `url.Values`.
-func (r PrimaryIpListParams) URLQuery() (v url.Values) {
+// URLQuery serializes [PrimaryIPListParams]'s query parameters as `url.Values`.
+func (r PrimaryIPListParams) URLQuery() (v url.Values) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,
@@ -476,13 +476,13 @@ func (r PrimaryIpListParams) URLQuery() (v url.Values) {
 
 // Can be used multiple times. Choices id id:asc id:desc created created:asc
 // created:desc
-type PrimaryIpListParamsSort string
+type PrimaryIPListParamsSort string
 
 const (
-	PrimaryIpListParamsSortID          PrimaryIpListParamsSort = "id"
-	PrimaryIpListParamsSortIDAsc       PrimaryIpListParamsSort = "id:asc"
-	PrimaryIpListParamsSortIDDesc      PrimaryIpListParamsSort = "id:desc"
-	PrimaryIpListParamsSortCreated     PrimaryIpListParamsSort = "created"
-	PrimaryIpListParamsSortCreatedAsc  PrimaryIpListParamsSort = "created:asc"
-	PrimaryIpListParamsSortCreatedDesc PrimaryIpListParamsSort = "created:desc"
+	PrimaryIPListParamsSortID          PrimaryIPListParamsSort = "id"
+	PrimaryIPListParamsSortIDAsc       PrimaryIPListParamsSort = "id:asc"
+	PrimaryIPListParamsSortIDDesc      PrimaryIPListParamsSort = "id:desc"
+	PrimaryIPListParamsSortCreated     PrimaryIPListParamsSort = "created"
+	PrimaryIPListParamsSortCreatedAsc  PrimaryIPListParamsSort = "created:asc"
+	PrimaryIPListParamsSortCreatedDesc PrimaryIPListParamsSort = "created:desc"
 )

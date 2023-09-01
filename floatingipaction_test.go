@@ -13,7 +13,7 @@ import (
 	"github.com/hetzner/hetzner-go/option"
 )
 
-func TestFloatingIpActionGet(t *testing.T) {
+func TestFloatingIPActionGet(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -21,7 +21,7 @@ func TestFloatingIpActionGet(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.FloatingIps.Actions.Get(
+	_, err := client.FloatingIPs.Actions.Get(
 		context.TODO(),
 		int64(0),
 		int64(0),
@@ -35,7 +35,7 @@ func TestFloatingIpActionGet(t *testing.T) {
 	}
 }
 
-func TestFloatingIpActionListWithOptionalParams(t *testing.T) {
+func TestFloatingIPActionListWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -43,10 +43,10 @@ func TestFloatingIpActionListWithOptionalParams(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.FloatingIps.Actions.List(
+	_, err := client.FloatingIPs.Actions.List(
 		context.TODO(),
 		int64(0),
-		hetzner.FloatingIpActionListParams{
+		hetzner.FloatingIPActionListParams{
 			Page:    hetzner.F(int64(1)),
 			PerPage: hetzner.F(int64(1)),
 			Sort:    hetzner.F(shared.SortParamID),
@@ -62,7 +62,7 @@ func TestFloatingIpActionListWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestFloatingIpActionAssign(t *testing.T) {
+func TestFloatingIPActionAssign(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -70,10 +70,10 @@ func TestFloatingIpActionAssign(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.FloatingIps.Actions.Assign(
+	_, err := client.FloatingIPs.Actions.Assign(
 		context.TODO(),
 		int64(0),
-		hetzner.FloatingIpActionAssignParams{
+		hetzner.FloatingIPActionAssignParams{
 			Server: hetzner.F(int64(42)),
 		},
 	)
@@ -86,7 +86,7 @@ func TestFloatingIpActionAssign(t *testing.T) {
 	}
 }
 
-func TestFloatingIpActionChangeDnsPtr(t *testing.T) {
+func TestFloatingIPActionChangeDNSPtr(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -94,12 +94,12 @@ func TestFloatingIpActionChangeDnsPtr(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.FloatingIps.Actions.ChangeDnsPtr(
+	_, err := client.FloatingIPs.Actions.ChangeDNSPtr(
 		context.TODO(),
 		int64(0),
-		hetzner.FloatingIpActionChangeDnsPtrParams{
-			DnsPtr: hetzner.F("server02.example.com"),
-			Ip:     hetzner.F("1.2.3.4"),
+		hetzner.FloatingIPActionChangeDNSPtrParams{
+			DNSPtr: hetzner.F("server02.example.com"),
+			IP:     hetzner.F("1.2.3.4"),
 		},
 	)
 	if err != nil {
@@ -111,7 +111,7 @@ func TestFloatingIpActionChangeDnsPtr(t *testing.T) {
 	}
 }
 
-func TestFloatingIpActionChangeProtectionWithOptionalParams(t *testing.T) {
+func TestFloatingIPActionChangeProtectionWithOptionalParams(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -119,10 +119,10 @@ func TestFloatingIpActionChangeProtectionWithOptionalParams(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.FloatingIps.Actions.ChangeProtection(
+	_, err := client.FloatingIPs.Actions.ChangeProtection(
 		context.TODO(),
 		int64(0),
-		hetzner.FloatingIpActionChangeProtectionParams{
+		hetzner.FloatingIPActionChangeProtectionParams{
 			Delete: hetzner.F(true),
 		},
 	)
@@ -135,7 +135,7 @@ func TestFloatingIpActionChangeProtectionWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestFloatingIpActionUnassign(t *testing.T) {
+func TestFloatingIPActionUnassign(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -143,7 +143,7 @@ func TestFloatingIpActionUnassign(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.FloatingIps.Actions.Unassign(context.TODO(), int64(0))
+	_, err := client.FloatingIPs.Actions.Unassign(context.TODO(), int64(0))
 	if err != nil {
 		var apierr *hetzner.Error
 		if errors.As(err, &apierr) {

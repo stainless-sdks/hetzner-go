@@ -50,11 +50,11 @@ func (r *ServerTypeService) List(ctx context.Context, query ServerTypeListParams
 }
 
 // Type of cpu
-type CpuType string
+type CPUType string
 
 const (
-	CpuTypeDedicated CpuType = "dedicated"
-	CpuTypeShared    CpuType = "shared"
+	CPUTypeDedicated CPUType = "dedicated"
+	CPUTypeShared    CPUType = "shared"
 )
 
 type ServerType struct {
@@ -66,7 +66,7 @@ type ServerType struct {
 	// Number of cpu cores a Server of this type will have
 	Cores int64 `json:"cores,required"`
 	// Type of cpu
-	CpuType CpuType `json:"cpu_type,required"`
+	CPUType CPUType `json:"cpu_type,required"`
 	// This field is deprecated. Use the deprecation object instead
 	Deprecated bool `json:"deprecated,required,nullable"`
 	// Description of the Server type
@@ -96,7 +96,7 @@ type serverTypeJSON struct {
 	ID              apijson.Field
 	Architecture    apijson.Field
 	Cores           apijson.Field
-	CpuType         apijson.Field
+	CPUType         apijson.Field
 	Deprecated      apijson.Field
 	Description     apijson.Field
 	Disk            apijson.Field

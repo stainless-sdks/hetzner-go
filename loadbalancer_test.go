@@ -124,8 +124,8 @@ func TestLoadBalancerNewWithOptionalParams(t *testing.T) {
 				ListenPort: hetzner.F(int64(443)),
 				Status:     hetzner.F(shared.HealthStatusStatusHealthy),
 			}}),
-			Ip: hetzner.F(hetzner.LoadBalancerTargetIpParam{
-				Ip: hetzner.F("203.0.113.1"),
+			IP: hetzner.F(hetzner.LoadBalancerTargetIPParam{
+				IP: hetzner.F("203.0.113.1"),
 			}),
 			LabelSelector: hetzner.F(hetzner.LoadBalancerNewParamsTargetsLabelSelector{
 				Selector: hetzner.F("env=prod"),
@@ -148,7 +148,7 @@ func TestLoadBalancerNewWithOptionalParams(t *testing.T) {
 					ID: hetzner.F(int64(42)),
 				}),
 				Type:         hetzner.F("server"),
-				UsePrivateIp: hetzner.F(true),
+				UsePrivateIP: hetzner.F(true),
 			}, {
 				HealthStatus: hetzner.F([]shared.HealthStatusParam{{
 					ListenPort: hetzner.F(int64(443)),
@@ -164,7 +164,7 @@ func TestLoadBalancerNewWithOptionalParams(t *testing.T) {
 					ID: hetzner.F(int64(42)),
 				}),
 				Type:         hetzner.F("server"),
-				UsePrivateIp: hetzner.F(true),
+				UsePrivateIP: hetzner.F(true),
 			}, {
 				HealthStatus: hetzner.F([]shared.HealthStatusParam{{
 					ListenPort: hetzner.F(int64(443)),
@@ -180,10 +180,10 @@ func TestLoadBalancerNewWithOptionalParams(t *testing.T) {
 					ID: hetzner.F(int64(42)),
 				}),
 				Type:         hetzner.F("server"),
-				UsePrivateIp: hetzner.F(true),
+				UsePrivateIP: hetzner.F(true),
 			}}),
-			Type:         hetzner.F(hetzner.LoadBalancerNewParamsTargetsTypeIp),
-			UsePrivateIp: hetzner.F(true),
+			Type:         hetzner.F(hetzner.LoadBalancerNewParamsTargetsTypeIP),
+			UsePrivateIP: hetzner.F(true),
 		}, {
 			HealthStatus: hetzner.F([]shared.HealthStatusParam{{
 				ListenPort: hetzner.F(int64(443)),
@@ -195,8 +195,8 @@ func TestLoadBalancerNewWithOptionalParams(t *testing.T) {
 				ListenPort: hetzner.F(int64(443)),
 				Status:     hetzner.F(shared.HealthStatusStatusHealthy),
 			}}),
-			Ip: hetzner.F(hetzner.LoadBalancerTargetIpParam{
-				Ip: hetzner.F("203.0.113.1"),
+			IP: hetzner.F(hetzner.LoadBalancerTargetIPParam{
+				IP: hetzner.F("203.0.113.1"),
 			}),
 			LabelSelector: hetzner.F(hetzner.LoadBalancerNewParamsTargetsLabelSelector{
 				Selector: hetzner.F("env=prod"),
@@ -219,7 +219,7 @@ func TestLoadBalancerNewWithOptionalParams(t *testing.T) {
 					ID: hetzner.F(int64(42)),
 				}),
 				Type:         hetzner.F("server"),
-				UsePrivateIp: hetzner.F(true),
+				UsePrivateIP: hetzner.F(true),
 			}, {
 				HealthStatus: hetzner.F([]shared.HealthStatusParam{{
 					ListenPort: hetzner.F(int64(443)),
@@ -235,7 +235,7 @@ func TestLoadBalancerNewWithOptionalParams(t *testing.T) {
 					ID: hetzner.F(int64(42)),
 				}),
 				Type:         hetzner.F("server"),
-				UsePrivateIp: hetzner.F(true),
+				UsePrivateIP: hetzner.F(true),
 			}, {
 				HealthStatus: hetzner.F([]shared.HealthStatusParam{{
 					ListenPort: hetzner.F(int64(443)),
@@ -251,10 +251,10 @@ func TestLoadBalancerNewWithOptionalParams(t *testing.T) {
 					ID: hetzner.F(int64(42)),
 				}),
 				Type:         hetzner.F("server"),
-				UsePrivateIp: hetzner.F(true),
+				UsePrivateIP: hetzner.F(true),
 			}}),
-			Type:         hetzner.F(hetzner.LoadBalancerNewParamsTargetsTypeIp),
-			UsePrivateIp: hetzner.F(true),
+			Type:         hetzner.F(hetzner.LoadBalancerNewParamsTargetsTypeIP),
+			UsePrivateIP: hetzner.F(true),
 		}, {
 			HealthStatus: hetzner.F([]shared.HealthStatusParam{{
 				ListenPort: hetzner.F(int64(443)),
@@ -266,8 +266,8 @@ func TestLoadBalancerNewWithOptionalParams(t *testing.T) {
 				ListenPort: hetzner.F(int64(443)),
 				Status:     hetzner.F(shared.HealthStatusStatusHealthy),
 			}}),
-			Ip: hetzner.F(hetzner.LoadBalancerTargetIpParam{
-				Ip: hetzner.F("203.0.113.1"),
+			IP: hetzner.F(hetzner.LoadBalancerTargetIPParam{
+				IP: hetzner.F("203.0.113.1"),
 			}),
 			LabelSelector: hetzner.F(hetzner.LoadBalancerNewParamsTargetsLabelSelector{
 				Selector: hetzner.F("env=prod"),
@@ -290,7 +290,7 @@ func TestLoadBalancerNewWithOptionalParams(t *testing.T) {
 					ID: hetzner.F(int64(42)),
 				}),
 				Type:         hetzner.F("server"),
-				UsePrivateIp: hetzner.F(true),
+				UsePrivateIP: hetzner.F(true),
 			}, {
 				HealthStatus: hetzner.F([]shared.HealthStatusParam{{
 					ListenPort: hetzner.F(int64(443)),
@@ -306,7 +306,7 @@ func TestLoadBalancerNewWithOptionalParams(t *testing.T) {
 					ID: hetzner.F(int64(42)),
 				}),
 				Type:         hetzner.F("server"),
-				UsePrivateIp: hetzner.F(true),
+				UsePrivateIP: hetzner.F(true),
 			}, {
 				HealthStatus: hetzner.F([]shared.HealthStatusParam{{
 					ListenPort: hetzner.F(int64(443)),
@@ -322,10 +322,10 @@ func TestLoadBalancerNewWithOptionalParams(t *testing.T) {
 					ID: hetzner.F(int64(42)),
 				}),
 				Type:         hetzner.F("server"),
-				UsePrivateIp: hetzner.F(true),
+				UsePrivateIP: hetzner.F(true),
 			}}),
-			Type:         hetzner.F(hetzner.LoadBalancerNewParamsTargetsTypeIp),
-			UsePrivateIp: hetzner.F(true),
+			Type:         hetzner.F(hetzner.LoadBalancerNewParamsTargetsTypeIP),
+			UsePrivateIP: hetzner.F(true),
 		}}),
 	})
 	if err != nil {

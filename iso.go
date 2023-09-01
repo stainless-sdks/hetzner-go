@@ -16,25 +16,25 @@ import (
 	"github.com/hetzner/hetzner-go/option"
 )
 
-// IsoService contains methods and other services that help with interacting with
+// ISOService contains methods and other services that help with interacting with
 // the hetzner API. Note, unlike clients, this service does not read variables from
 // the environment automatically. You should not instantiate this service directly,
-// and instead use the [NewIsoService] method instead.
-type IsoService struct {
+// and instead use the [NewISOService] method instead.
+type ISOService struct {
 	Options []option.RequestOption
 }
 
-// NewIsoService generates a new service that applies the given options to each
+// NewISOService generates a new service that applies the given options to each
 // request. These options are applied after the parent client's options (if there
 // is one), and before any request-specific options.
-func NewIsoService(opts ...option.RequestOption) (r *IsoService) {
-	r = &IsoService{}
+func NewISOService(opts ...option.RequestOption) (r *ISOService) {
+	r = &ISOService{}
 	r.Options = opts
 	return
 }
 
 // Returns a specific ISO object.
-func (r *IsoService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *IsoGetResponse, err error) {
+func (r *ISOService) Get(ctx context.Context, id int64, opts ...option.RequestOption) (res *ISOGetResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := fmt.Sprintf("isos/%v", id)
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, nil, &res, opts...)
@@ -42,7 +42,7 @@ func (r *IsoService) Get(ctx context.Context, id int64, opts ...option.RequestOp
 }
 
 // Returns all available ISO objects.
-func (r *IsoService) List(ctx context.Context, query IsoListParams, opts ...option.RequestOption) (res *IsoListResponse, err error) {
+func (r *ISOService) List(ctx context.Context, query ISOListParams, opts ...option.RequestOption) (res *ISOListResponse, err error) {
 	opts = append(r.Options[:], opts...)
 	path := "isos"
 	err = requestconfig.ExecuteNewRequest(ctx, http.MethodGet, path, query, &res, opts...)
@@ -50,28 +50,28 @@ func (r *IsoService) List(ctx context.Context, query IsoListParams, opts ...opti
 }
 
 // Response to GET https://api.hetzner.cloud/v1/isos/{id}
-type IsoGetResponse struct {
-	Iso  IsoGetResponseIso `json:"iso,required"`
+type ISOGetResponse struct {
+	ISO  ISOGetResponseISO `json:"iso,required"`
 	JSON isoGetResponseJSON
 }
 
-// isoGetResponseJSON contains the JSON metadata for the struct [IsoGetResponse]
+// isoGetResponseJSON contains the JSON metadata for the struct [ISOGetResponse]
 type isoGetResponseJSON struct {
-	Iso         apijson.Field
+	ISO         apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *IsoGetResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *ISOGetResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type IsoGetResponseIso struct {
+type ISOGetResponseISO struct {
 	// ID of the Resource
 	ID int64 `json:"id,required"`
 	// Type of cpu architecture this iso is compatible with. Null indicates no
 	// restriction on the architecture (wildcard).
-	Architecture IsoGetResponseIsoArchitecture `json:"architecture,required,nullable"`
+	Architecture ISOGetResponseISOArchitecture `json:"architecture,required,nullable"`
 	// ISO 8601 timestamp of deprecation, null if ISO is still available. After the
 	// deprecation time it will no longer be possible to attach the ISO to Servers.
 	Deprecated string `json:"deprecated,required,nullable"`
@@ -80,13 +80,13 @@ type IsoGetResponseIso struct {
 	// Unique identifier of the ISO. Only set for public ISOs
 	Name string `json:"name,required,nullable"`
 	// Type of the ISO
-	Type IsoGetResponseIsoType `json:"type,required"`
-	JSON isoGetResponseIsoJSON
+	Type ISOGetResponseISOType `json:"type,required"`
+	JSON isoGetResponseISOJSON
 }
 
-// isoGetResponseIsoJSON contains the JSON metadata for the struct
-// [IsoGetResponseIso]
-type isoGetResponseIsoJSON struct {
+// isoGetResponseISOJSON contains the JSON metadata for the struct
+// [ISOGetResponseISO]
+type isoGetResponseISOJSON struct {
 	ID           apijson.Field
 	Architecture apijson.Field
 	Deprecated   apijson.Field
@@ -97,53 +97,53 @@ type isoGetResponseIsoJSON struct {
 	ExtraFields  map[string]apijson.Field
 }
 
-func (r *IsoGetResponseIso) UnmarshalJSON(data []byte) (err error) {
+func (r *ISOGetResponseISO) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Type of cpu architecture this iso is compatible with. Null indicates no
 // restriction on the architecture (wildcard).
-type IsoGetResponseIsoArchitecture string
+type ISOGetResponseISOArchitecture string
 
 const (
-	IsoGetResponseIsoArchitectureArm IsoGetResponseIsoArchitecture = "arm"
-	IsoGetResponseIsoArchitectureX86 IsoGetResponseIsoArchitecture = "x86"
+	ISOGetResponseISOArchitectureArm ISOGetResponseISOArchitecture = "arm"
+	ISOGetResponseISOArchitectureX86 ISOGetResponseISOArchitecture = "x86"
 )
 
 // Type of the ISO
-type IsoGetResponseIsoType string
+type ISOGetResponseISOType string
 
 const (
-	IsoGetResponseIsoTypePrivate IsoGetResponseIsoType = "private"
-	IsoGetResponseIsoTypePublic  IsoGetResponseIsoType = "public"
+	ISOGetResponseISOTypePrivate ISOGetResponseISOType = "private"
+	ISOGetResponseISOTypePublic  ISOGetResponseISOType = "public"
 )
 
 // Response to GET https://api.hetzner.cloud/v1/isos
-type IsoListResponse struct {
-	Isos []IsoListResponseIso `json:"isos,required"`
+type ISOListResponse struct {
+	ISOs []ISOListResponseISO `json:"isos,required"`
 	// Metadata contained in the response
 	Meta shared.ResponseMeta `json:"meta"`
 	JSON isoListResponseJSON
 }
 
-// isoListResponseJSON contains the JSON metadata for the struct [IsoListResponse]
+// isoListResponseJSON contains the JSON metadata for the struct [ISOListResponse]
 type isoListResponseJSON struct {
-	Isos        apijson.Field
+	ISOs        apijson.Field
 	Meta        apijson.Field
 	raw         string
 	ExtraFields map[string]apijson.Field
 }
 
-func (r *IsoListResponse) UnmarshalJSON(data []byte) (err error) {
+func (r *ISOListResponse) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
-type IsoListResponseIso struct {
+type ISOListResponseISO struct {
 	// ID of the Resource
 	ID int64 `json:"id,required"`
 	// Type of cpu architecture this iso is compatible with. Null indicates no
 	// restriction on the architecture (wildcard).
-	Architecture IsoListResponseIsosArchitecture `json:"architecture,required,nullable"`
+	Architecture ISOListResponseISOsArchitecture `json:"architecture,required,nullable"`
 	// ISO 8601 timestamp of deprecation, null if ISO is still available. After the
 	// deprecation time it will no longer be possible to attach the ISO to Servers.
 	Deprecated string `json:"deprecated,required,nullable"`
@@ -152,13 +152,13 @@ type IsoListResponseIso struct {
 	// Unique identifier of the ISO. Only set for public ISOs
 	Name string `json:"name,required,nullable"`
 	// Type of the ISO
-	Type IsoListResponseIsosType `json:"type,required"`
-	JSON isoListResponseIsoJSON
+	Type ISOListResponseISOsType `json:"type,required"`
+	JSON isoListResponseISOJSON
 }
 
-// isoListResponseIsoJSON contains the JSON metadata for the struct
-// [IsoListResponseIso]
-type isoListResponseIsoJSON struct {
+// isoListResponseISOJSON contains the JSON metadata for the struct
+// [ISOListResponseISO]
+type isoListResponseISOJSON struct {
 	ID           apijson.Field
 	Architecture apijson.Field
 	Deprecated   apijson.Field
@@ -169,28 +169,28 @@ type isoListResponseIsoJSON struct {
 	ExtraFields  map[string]apijson.Field
 }
 
-func (r *IsoListResponseIso) UnmarshalJSON(data []byte) (err error) {
+func (r *ISOListResponseISO) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
 // Type of cpu architecture this iso is compatible with. Null indicates no
 // restriction on the architecture (wildcard).
-type IsoListResponseIsosArchitecture string
+type ISOListResponseISOsArchitecture string
 
 const (
-	IsoListResponseIsosArchitectureArm IsoListResponseIsosArchitecture = "arm"
-	IsoListResponseIsosArchitectureX86 IsoListResponseIsosArchitecture = "x86"
+	ISOListResponseISOsArchitectureArm ISOListResponseISOsArchitecture = "arm"
+	ISOListResponseISOsArchitectureX86 ISOListResponseISOsArchitecture = "x86"
 )
 
 // Type of the ISO
-type IsoListResponseIsosType string
+type ISOListResponseISOsType string
 
 const (
-	IsoListResponseIsosTypePrivate IsoListResponseIsosType = "private"
-	IsoListResponseIsosTypePublic  IsoListResponseIsosType = "public"
+	ISOListResponseISOsTypePrivate ISOListResponseISOsType = "private"
+	ISOListResponseISOsTypePublic  ISOListResponseISOsType = "public"
 )
 
-type IsoListParams struct {
+type ISOListParams struct {
 	// Return only ISOs with the given architecture.
 	Architecture param.Field[string] `query:"architecture"`
 	// Include Images with wildcard architecture (architecture is null). Works only if
@@ -206,8 +206,8 @@ type IsoListParams struct {
 	PerPage param.Field[int64] `query:"per_page"`
 }
 
-// URLQuery serializes [IsoListParams]'s query parameters as `url.Values`.
-func (r IsoListParams) URLQuery() (v url.Values) {
+// URLQuery serializes [ISOListParams]'s query parameters as `url.Values`.
+func (r ISOListParams) URLQuery() (v url.Values) {
 	return apiquery.MarshalWithSettings(r, apiquery.QuerySettings{
 		ArrayFormat:  apiquery.ArrayQueryFormatComma,
 		NestedFormat: apiquery.NestedQueryFormatBrackets,

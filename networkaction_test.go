@@ -101,7 +101,7 @@ func TestNetworkActionAddSubnetWithOptionalParams(t *testing.T) {
 		hetzner.NetworkActionAddSubnetParams{
 			NetworkZone: hetzner.F("eu-central"),
 			Type:        hetzner.F(hetzner.NetworkActionAddSubnetParamsTypeCloud),
-			IpRange:     hetzner.F("10.0.1.0/24"),
+			IPRange:     hetzner.F("10.0.1.0/24"),
 			VswitchID:   hetzner.F(int64(1000)),
 		},
 	)
@@ -114,7 +114,7 @@ func TestNetworkActionAddSubnetWithOptionalParams(t *testing.T) {
 	}
 }
 
-func TestNetworkActionChangeIpRange(t *testing.T) {
+func TestNetworkActionChangeIPRange(t *testing.T) {
 	if !testutil.CheckTestServer(t) {
 		return
 	}
@@ -122,11 +122,11 @@ func TestNetworkActionChangeIpRange(t *testing.T) {
 		option.WithBaseURL("http://127.0.0.1:4010"),
 		option.WithAPIToken("APIToken"),
 	)
-	_, err := client.Networks.Actions.ChangeIpRange(
+	_, err := client.Networks.Actions.ChangeIPRange(
 		context.TODO(),
 		int64(0),
-		hetzner.NetworkActionChangeIpRangeParams{
-			IpRange: hetzner.F("10.0.0.0/12"),
+		hetzner.NetworkActionChangeIPRangeParams{
+			IPRange: hetzner.F("10.0.0.0/12"),
 		},
 	)
 	if err != nil {
@@ -199,7 +199,7 @@ func TestNetworkActionDeleteSubnet(t *testing.T) {
 		context.TODO(),
 		int64(0),
 		hetzner.NetworkActionDeleteSubnetParams{
-			IpRange: hetzner.F("10.0.1.0/24"),
+			IPRange: hetzner.F("10.0.1.0/24"),
 		},
 	)
 	if err != nil {
