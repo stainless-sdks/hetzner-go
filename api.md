@@ -396,6 +396,8 @@ Methods:
 
 Response Types:
 
+- <a href="https://pkg.go.dev/github.com/hetzner/hetzner-go">hetzner</a>.<a href="https://pkg.go.dev/github.com/hetzner/hetzner-go#CpuType">CpuType</a>
+- <a href="https://pkg.go.dev/github.com/hetzner/hetzner-go">hetzner</a>.<a href="https://pkg.go.dev/github.com/hetzner/hetzner-go#ServerType">ServerType</a>
 - <a href="https://pkg.go.dev/github.com/hetzner/hetzner-go">hetzner</a>.<a href="https://pkg.go.dev/github.com/hetzner/hetzner-go#ServerTypeGetResponse">ServerTypeGetResponse</a>
 - <a href="https://pkg.go.dev/github.com/hetzner/hetzner-go">hetzner</a>.<a href="https://pkg.go.dev/github.com/hetzner/hetzner-go#ServerTypeListResponse">ServerTypeListResponse</a>
 

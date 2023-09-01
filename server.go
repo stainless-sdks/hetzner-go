@@ -680,7 +680,7 @@ type ServerServerType struct {
 	// Number of cpu cores a Server of this type will have
 	Cores int64 `json:"cores,required"`
 	// Type of cpu
-	CpuType ServerServerTypeCpuType `json:"cpu_type,required"`
+	CpuType CpuType `json:"cpu_type,required"`
 	// True if Server type is deprecated
 	Deprecated bool `json:"deprecated,required,nullable"`
 	// Description of the Server type
@@ -719,14 +719,6 @@ type serverServerTypeJSON struct {
 func (r *ServerServerType) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
-
-// Type of cpu
-type ServerServerTypeCpuType string
-
-const (
-	ServerServerTypeCpuTypeDedicated ServerServerTypeCpuType = "dedicated"
-	ServerServerTypeCpuTypeShared    ServerServerTypeCpuType = "shared"
-)
 
 type ServerServerTypePrice struct {
 	// Name of the Location the price is for
