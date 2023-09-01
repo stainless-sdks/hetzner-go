@@ -152,7 +152,7 @@ type ServerTypeGetResponseServerTypePrice struct {
 	// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
 	// for a Server type in this Location | Monthly costs for a Server type in this
 	// Location
-	PriceHourly ServerTypeGetResponseServerTypePricesPriceHourly `json:"price_hourly,required"`
+	PriceHourly Price `json:"price_hourly,required"`
 	// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
 	// this Location | Monthly costs for a Floating IP type in this Location | Hourly
 	// costs for a Load Balancer type in this network zone | Monthly costs for a Load
@@ -160,7 +160,7 @@ type ServerTypeGetResponseServerTypePrice struct {
 	// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
 	// for a Server type in this Location | Monthly costs for a Server type in this
 	// Location
-	PriceMonthly ServerTypeGetResponseServerTypePricesPriceMonthly `json:"price_monthly,required"`
+	PriceMonthly Price `json:"price_monthly,required"`
 	JSON         serverTypeGetResponseServerTypePriceJSON
 }
 
@@ -175,62 +175,6 @@ type serverTypeGetResponseServerTypePriceJSON struct {
 }
 
 func (r *ServerTypeGetResponseServerTypePrice) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-// this Location | Monthly costs for a Floating IP type in this Location | Hourly
-// costs for a Load Balancer type in this network zone | Monthly costs for a Load
-// Balancer type in this network zone | Hourly costs for a Primary IP type in this
-// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-// for a Server type in this Location | Monthly costs for a Server type in this
-// Location
-type ServerTypeGetResponseServerTypePricesPriceHourly struct {
-	// Price with VAT added
-	Gross string `json:"gross,required" format:"decimal"`
-	// Price without VAT
-	Net  string `json:"net,required" format:"decimal"`
-	JSON serverTypeGetResponseServerTypePricesPriceHourlyJSON
-}
-
-// serverTypeGetResponseServerTypePricesPriceHourlyJSON contains the JSON metadata
-// for the struct [ServerTypeGetResponseServerTypePricesPriceHourly]
-type serverTypeGetResponseServerTypePricesPriceHourlyJSON struct {
-	Gross       apijson.Field
-	Net         apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *ServerTypeGetResponseServerTypePricesPriceHourly) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-// this Location | Monthly costs for a Floating IP type in this Location | Hourly
-// costs for a Load Balancer type in this network zone | Monthly costs for a Load
-// Balancer type in this network zone | Hourly costs for a Primary IP type in this
-// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-// for a Server type in this Location | Monthly costs for a Server type in this
-// Location
-type ServerTypeGetResponseServerTypePricesPriceMonthly struct {
-	// Price with VAT added
-	Gross string `json:"gross,required" format:"decimal"`
-	// Price without VAT
-	Net  string `json:"net,required" format:"decimal"`
-	JSON serverTypeGetResponseServerTypePricesPriceMonthlyJSON
-}
-
-// serverTypeGetResponseServerTypePricesPriceMonthlyJSON contains the JSON metadata
-// for the struct [ServerTypeGetResponseServerTypePricesPriceMonthly]
-type serverTypeGetResponseServerTypePricesPriceMonthlyJSON struct {
-	Gross       apijson.Field
-	Net         apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *ServerTypeGetResponseServerTypePricesPriceMonthly) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -376,7 +320,7 @@ type ServerTypeListResponseServerTypesPrice struct {
 	// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
 	// for a Server type in this Location | Monthly costs for a Server type in this
 	// Location
-	PriceHourly ServerTypeListResponseServerTypesPricesPriceHourly `json:"price_hourly,required"`
+	PriceHourly Price `json:"price_hourly,required"`
 	// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
 	// this Location | Monthly costs for a Floating IP type in this Location | Hourly
 	// costs for a Load Balancer type in this network zone | Monthly costs for a Load
@@ -384,7 +328,7 @@ type ServerTypeListResponseServerTypesPrice struct {
 	// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
 	// for a Server type in this Location | Monthly costs for a Server type in this
 	// Location
-	PriceMonthly ServerTypeListResponseServerTypesPricesPriceMonthly `json:"price_monthly,required"`
+	PriceMonthly Price `json:"price_monthly,required"`
 	JSON         serverTypeListResponseServerTypesPriceJSON
 }
 
@@ -399,62 +343,6 @@ type serverTypeListResponseServerTypesPriceJSON struct {
 }
 
 func (r *ServerTypeListResponseServerTypesPrice) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-// this Location | Monthly costs for a Floating IP type in this Location | Hourly
-// costs for a Load Balancer type in this network zone | Monthly costs for a Load
-// Balancer type in this network zone | Hourly costs for a Primary IP type in this
-// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-// for a Server type in this Location | Monthly costs for a Server type in this
-// Location
-type ServerTypeListResponseServerTypesPricesPriceHourly struct {
-	// Price with VAT added
-	Gross string `json:"gross,required" format:"decimal"`
-	// Price without VAT
-	Net  string `json:"net,required" format:"decimal"`
-	JSON serverTypeListResponseServerTypesPricesPriceHourlyJSON
-}
-
-// serverTypeListResponseServerTypesPricesPriceHourlyJSON contains the JSON
-// metadata for the struct [ServerTypeListResponseServerTypesPricesPriceHourly]
-type serverTypeListResponseServerTypesPricesPriceHourlyJSON struct {
-	Gross       apijson.Field
-	Net         apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *ServerTypeListResponseServerTypesPricesPriceHourly) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-// this Location | Monthly costs for a Floating IP type in this Location | Hourly
-// costs for a Load Balancer type in this network zone | Monthly costs for a Load
-// Balancer type in this network zone | Hourly costs for a Primary IP type in this
-// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-// for a Server type in this Location | Monthly costs for a Server type in this
-// Location
-type ServerTypeListResponseServerTypesPricesPriceMonthly struct {
-	// Price with VAT added
-	Gross string `json:"gross,required" format:"decimal"`
-	// Price without VAT
-	Net  string `json:"net,required" format:"decimal"`
-	JSON serverTypeListResponseServerTypesPricesPriceMonthlyJSON
-}
-
-// serverTypeListResponseServerTypesPricesPriceMonthlyJSON contains the JSON
-// metadata for the struct [ServerTypeListResponseServerTypesPricesPriceMonthly]
-type serverTypeListResponseServerTypesPricesPriceMonthlyJSON struct {
-	Gross       apijson.Field
-	Net         apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *ServerTypeListResponseServerTypesPricesPriceMonthly) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 

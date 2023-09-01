@@ -345,6 +345,9 @@ Methods:
 
 Response Types:
 
+- <a href="https://pkg.go.dev/github.com/hetzner/hetzner-go">hetzner</a>.<a href="https://pkg.go.dev/github.com/hetzner/hetzner-go#FloatingIpPriceDetails">FloatingIpPriceDetails</a>
+- <a href="https://pkg.go.dev/github.com/hetzner/hetzner-go">hetzner</a>.<a href="https://pkg.go.dev/github.com/hetzner/hetzner-go#Price">Price</a>
+- <a href="https://pkg.go.dev/github.com/hetzner/hetzner-go">hetzner</a>.<a href="https://pkg.go.dev/github.com/hetzner/hetzner-go#PricePerTimeMonthly">PricePerTimeMonthly</a>
 - <a href="https://pkg.go.dev/github.com/hetzner/hetzner-go">hetzner</a>.<a href="https://pkg.go.dev/github.com/hetzner/hetzner-go#PricingGetResponse">PricingGetResponse</a>
 
 Methods:

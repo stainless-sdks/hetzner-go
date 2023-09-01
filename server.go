@@ -738,7 +738,7 @@ type ServerServerTypePrice struct {
 	// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
 	// for a Server type in this Location | Monthly costs for a Server type in this
 	// Location
-	PriceHourly ServerServerTypePricesPriceHourly `json:"price_hourly,required"`
+	PriceHourly Price `json:"price_hourly,required"`
 	// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
 	// this Location | Monthly costs for a Floating IP type in this Location | Hourly
 	// costs for a Load Balancer type in this network zone | Monthly costs for a Load
@@ -746,7 +746,7 @@ type ServerServerTypePrice struct {
 	// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
 	// for a Server type in this Location | Monthly costs for a Server type in this
 	// Location
-	PriceMonthly ServerServerTypePricesPriceMonthly `json:"price_monthly,required"`
+	PriceMonthly Price `json:"price_monthly,required"`
 	JSON         serverServerTypePriceJSON
 }
 
@@ -761,62 +761,6 @@ type serverServerTypePriceJSON struct {
 }
 
 func (r *ServerServerTypePrice) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-// this Location | Monthly costs for a Floating IP type in this Location | Hourly
-// costs for a Load Balancer type in this network zone | Monthly costs for a Load
-// Balancer type in this network zone | Hourly costs for a Primary IP type in this
-// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-// for a Server type in this Location | Monthly costs for a Server type in this
-// Location
-type ServerServerTypePricesPriceHourly struct {
-	// Price with VAT added
-	Gross string `json:"gross,required" format:"decimal"`
-	// Price without VAT
-	Net  string `json:"net,required" format:"decimal"`
-	JSON serverServerTypePricesPriceHourlyJSON
-}
-
-// serverServerTypePricesPriceHourlyJSON contains the JSON metadata for the struct
-// [ServerServerTypePricesPriceHourly]
-type serverServerTypePricesPriceHourlyJSON struct {
-	Gross       apijson.Field
-	Net         apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *ServerServerTypePricesPriceHourly) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-// this Location | Monthly costs for a Floating IP type in this Location | Hourly
-// costs for a Load Balancer type in this network zone | Monthly costs for a Load
-// Balancer type in this network zone | Hourly costs for a Primary IP type in this
-// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-// for a Server type in this Location | Monthly costs for a Server type in this
-// Location
-type ServerServerTypePricesPriceMonthly struct {
-	// Price with VAT added
-	Gross string `json:"gross,required" format:"decimal"`
-	// Price without VAT
-	Net  string `json:"net,required" format:"decimal"`
-	JSON serverServerTypePricesPriceMonthlyJSON
-}
-
-// serverServerTypePricesPriceMonthlyJSON contains the JSON metadata for the struct
-// [ServerServerTypePricesPriceMonthly]
-type serverServerTypePricesPriceMonthlyJSON struct {
-	Gross       apijson.Field
-	Net         apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *ServerServerTypePricesPriceMonthly) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 

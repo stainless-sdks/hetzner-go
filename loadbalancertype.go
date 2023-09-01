@@ -120,7 +120,7 @@ type LoadBalancerTypeGetResponseLoadBalancerTypePrice struct {
 	// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
 	// for a Server type in this Location | Monthly costs for a Server type in this
 	// Location
-	PriceHourly LoadBalancerTypeGetResponseLoadBalancerTypePricesPriceHourly `json:"price_hourly,required"`
+	PriceHourly Price `json:"price_hourly,required"`
 	// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
 	// this Location | Monthly costs for a Floating IP type in this Location | Hourly
 	// costs for a Load Balancer type in this network zone | Monthly costs for a Load
@@ -128,7 +128,7 @@ type LoadBalancerTypeGetResponseLoadBalancerTypePrice struct {
 	// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
 	// for a Server type in this Location | Monthly costs for a Server type in this
 	// Location
-	PriceMonthly LoadBalancerTypeGetResponseLoadBalancerTypePricesPriceMonthly `json:"price_monthly,required"`
+	PriceMonthly Price `json:"price_monthly,required"`
 	JSON         loadBalancerTypeGetResponseLoadBalancerTypePriceJSON
 }
 
@@ -143,64 +143,6 @@ type loadBalancerTypeGetResponseLoadBalancerTypePriceJSON struct {
 }
 
 func (r *LoadBalancerTypeGetResponseLoadBalancerTypePrice) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-// this Location | Monthly costs for a Floating IP type in this Location | Hourly
-// costs for a Load Balancer type in this network zone | Monthly costs for a Load
-// Balancer type in this network zone | Hourly costs for a Primary IP type in this
-// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-// for a Server type in this Location | Monthly costs for a Server type in this
-// Location
-type LoadBalancerTypeGetResponseLoadBalancerTypePricesPriceHourly struct {
-	// Price with VAT added
-	Gross string `json:"gross,required" format:"decimal"`
-	// Price without VAT
-	Net  string `json:"net,required" format:"decimal"`
-	JSON loadBalancerTypeGetResponseLoadBalancerTypePricesPriceHourlyJSON
-}
-
-// loadBalancerTypeGetResponseLoadBalancerTypePricesPriceHourlyJSON contains the
-// JSON metadata for the struct
-// [LoadBalancerTypeGetResponseLoadBalancerTypePricesPriceHourly]
-type loadBalancerTypeGetResponseLoadBalancerTypePricesPriceHourlyJSON struct {
-	Gross       apijson.Field
-	Net         apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *LoadBalancerTypeGetResponseLoadBalancerTypePricesPriceHourly) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-// this Location | Monthly costs for a Floating IP type in this Location | Hourly
-// costs for a Load Balancer type in this network zone | Monthly costs for a Load
-// Balancer type in this network zone | Hourly costs for a Primary IP type in this
-// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-// for a Server type in this Location | Monthly costs for a Server type in this
-// Location
-type LoadBalancerTypeGetResponseLoadBalancerTypePricesPriceMonthly struct {
-	// Price with VAT added
-	Gross string `json:"gross,required" format:"decimal"`
-	// Price without VAT
-	Net  string `json:"net,required" format:"decimal"`
-	JSON loadBalancerTypeGetResponseLoadBalancerTypePricesPriceMonthlyJSON
-}
-
-// loadBalancerTypeGetResponseLoadBalancerTypePricesPriceMonthlyJSON contains the
-// JSON metadata for the struct
-// [LoadBalancerTypeGetResponseLoadBalancerTypePricesPriceMonthly]
-type loadBalancerTypeGetResponseLoadBalancerTypePricesPriceMonthlyJSON struct {
-	Gross       apijson.Field
-	Net         apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *LoadBalancerTypeGetResponseLoadBalancerTypePricesPriceMonthly) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
@@ -277,7 +219,7 @@ type LoadBalancerTypeListResponseLoadBalancerTypesPrice struct {
 	// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
 	// for a Server type in this Location | Monthly costs for a Server type in this
 	// Location
-	PriceHourly LoadBalancerTypeListResponseLoadBalancerTypesPricesPriceHourly `json:"price_hourly,required"`
+	PriceHourly Price `json:"price_hourly,required"`
 	// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
 	// this Location | Monthly costs for a Floating IP type in this Location | Hourly
 	// costs for a Load Balancer type in this network zone | Monthly costs for a Load
@@ -285,7 +227,7 @@ type LoadBalancerTypeListResponseLoadBalancerTypesPrice struct {
 	// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
 	// for a Server type in this Location | Monthly costs for a Server type in this
 	// Location
-	PriceMonthly LoadBalancerTypeListResponseLoadBalancerTypesPricesPriceMonthly `json:"price_monthly,required"`
+	PriceMonthly Price `json:"price_monthly,required"`
 	JSON         loadBalancerTypeListResponseLoadBalancerTypesPriceJSON
 }
 
@@ -300,64 +242,6 @@ type loadBalancerTypeListResponseLoadBalancerTypesPriceJSON struct {
 }
 
 func (r *LoadBalancerTypeListResponseLoadBalancerTypesPrice) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-// this Location | Monthly costs for a Floating IP type in this Location | Hourly
-// costs for a Load Balancer type in this network zone | Monthly costs for a Load
-// Balancer type in this network zone | Hourly costs for a Primary IP type in this
-// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-// for a Server type in this Location | Monthly costs for a Server type in this
-// Location
-type LoadBalancerTypeListResponseLoadBalancerTypesPricesPriceHourly struct {
-	// Price with VAT added
-	Gross string `json:"gross,required" format:"decimal"`
-	// Price without VAT
-	Net  string `json:"net,required" format:"decimal"`
-	JSON loadBalancerTypeListResponseLoadBalancerTypesPricesPriceHourlyJSON
-}
-
-// loadBalancerTypeListResponseLoadBalancerTypesPricesPriceHourlyJSON contains the
-// JSON metadata for the struct
-// [LoadBalancerTypeListResponseLoadBalancerTypesPricesPriceHourly]
-type loadBalancerTypeListResponseLoadBalancerTypesPricesPriceHourlyJSON struct {
-	Gross       apijson.Field
-	Net         apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *LoadBalancerTypeListResponseLoadBalancerTypesPricesPriceHourly) UnmarshalJSON(data []byte) (err error) {
-	return apijson.UnmarshalRoot(data, r)
-}
-
-// Hourly costs for a Resource in this Location | Monthly costs for a Resource in
-// this Location | Monthly costs for a Floating IP type in this Location | Hourly
-// costs for a Load Balancer type in this network zone | Monthly costs for a Load
-// Balancer type in this network zone | Hourly costs for a Primary IP type in this
-// Location | Monthly costs for a Primary IP type in this Location | Hourly costs
-// for a Server type in this Location | Monthly costs for a Server type in this
-// Location
-type LoadBalancerTypeListResponseLoadBalancerTypesPricesPriceMonthly struct {
-	// Price with VAT added
-	Gross string `json:"gross,required" format:"decimal"`
-	// Price without VAT
-	Net  string `json:"net,required" format:"decimal"`
-	JSON loadBalancerTypeListResponseLoadBalancerTypesPricesPriceMonthlyJSON
-}
-
-// loadBalancerTypeListResponseLoadBalancerTypesPricesPriceMonthlyJSON contains the
-// JSON metadata for the struct
-// [LoadBalancerTypeListResponseLoadBalancerTypesPricesPriceMonthly]
-type loadBalancerTypeListResponseLoadBalancerTypesPricesPriceMonthlyJSON struct {
-	Gross       apijson.Field
-	Net         apijson.Field
-	raw         string
-	ExtraFields map[string]apijson.Field
-}
-
-func (r *LoadBalancerTypeListResponseLoadBalancerTypesPricesPriceMonthly) UnmarshalJSON(data []byte) (err error) {
 	return apijson.UnmarshalRoot(data, r)
 }
 
